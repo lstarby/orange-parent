@@ -9,6 +9,6 @@
     </settings>
     <!-- 批量设置别名 -->
     <typeAliases>
-        <package name="com.zzsong.study.orangelala.user.pojo"/>
+        <package name="com.zzsong.study.orange.user.pojo"/>
     </typeAliases>
 </configuration>

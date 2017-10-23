@@ -5,7 +5,7 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 /**
  * Created by zzsong on 2017/10/14.
  */
-@FeignClient(value = "orangelala-user", fallbackFactory = UserFeignClientFallbackFactory.class)
+@FeignClient(value = "orange-user", fallbackFactory = UserFeignClientFallbackFactory.class)
 public interface UserFeignClient {
 
 }

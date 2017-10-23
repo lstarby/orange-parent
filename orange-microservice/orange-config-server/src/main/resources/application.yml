@@ -1,19 +1,6 @@
 server:
   port: 8091
 
-#spring:
-#  application:
-#    name: orange-config-server
-#  cloud:
-#    config:
-#      server:
-#        git:
-#          uri: https://github.com/Magicanshowszz/orangelala-parent
-#          search-paths: orangelala-config-repo
-#          username: 404869355@qq.com
-#          password: q139556
-#      label: master
-
 spring:
   application:
     name: orange-config-server
@@ -21,10 +8,23 @@ spring:
     config:
       server:
         git:
-          uri: https://gitee.com/zzsong/orangelala-config-repo
+          uri: https://github.com/Magicanshowszz/orange-parent
+          search-paths: orange-config-repo
           username: 404869355@qq.com
           password: q139556
       label: master
+
+#spring:
+#  application:
+#    name: orange-config-server
+#  cloud:
+#    config:
+#      server:
+#        git:
+#          uri: https://gitee.com/zzsong/orange-config-repo
+#          username: 404869355@qq.com
+#          password: q139556
+#      label: master
 
 eureka:
   client:

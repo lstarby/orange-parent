@@ -9,14 +9,14 @@ import org.springframework.session.web.http.HttpSessionStrategy;
 /**
  * Created by zzsong on 2017/10/17.
  */
-@EnableRedisHttpSession(redisNamespace = "orangelala")
+@EnableRedisHttpSession(redisNamespace = "orange")
 public class HttpSessionConfig {
 
     @Bean
     public HttpSessionStrategy httpSessionStrategy() {
         DefaultCookieSerializer cookieSerializer = new DefaultCookieSerializer();
         // 修改cookie中sessionToken的key
-        cookieSerializer.setCookieName("ORANGELALA-TOKEN");
+        cookieSerializer.setCookieName("ORANGE-TOKEN");
         CookieHttpSessionStrategy cookieHttpSessionStrategy = new CookieHttpSessionStrategy();
         cookieHttpSessionStrategy.setCookieSerializer(cookieSerializer);
         return cookieHttpSessionStrategy;

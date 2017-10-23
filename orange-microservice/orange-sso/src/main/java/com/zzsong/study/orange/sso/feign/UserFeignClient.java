@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Created by zzsong on 2017/10/14.
  */
-@FeignClient(value = "orangelala-user", fallbackFactory = UserFeignClientFallbackFactory.class)
+@FeignClient(value = "orange-user", fallbackFactory = UserFeignClientFallbackFactory.class)
 public interface UserFeignClient {
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     Result<String> addUser(@RequestBody User user);
