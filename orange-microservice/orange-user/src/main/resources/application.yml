@@ -1,0 +1,45 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8011
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,text/css,application/javascript
+    min-response-size: 1
+
+spring:
+  application:
+    name: orange-user
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/orangelala?characterEncoding=utf-8&useAffectedRows=true
+    username: root
+    password: Include203
+    initialSize: 50
+    minIdle: 20
+    maxActive: 100
+    maxWait: 200
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 from `user`
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+logging:
+  level:
+    root: INFO
+    druid: off
+    com.zzsong: DEBUG
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://user:password123@localhost:8761/eureka,http://user:password123@localhost:8762/eureka

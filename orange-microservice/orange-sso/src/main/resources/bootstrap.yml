@@ -1,0 +1,54 @@
+spring:
+  cloud:
+    config:
+      label: master
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: orange-config-server
+    bus:
+      trace:
+        enabled: true
+  application:
+    name: orange-sso
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: false #开发时关闭缓存
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    timeout: 100
+    pool:
+      max-active: 100
+      max-wait: 500
+      min-idle: 0
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
+management:
+  security:
+    enabled: false # 刷新时，关闭安全验证
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://user:password123@localhost:8761/eureka/,http://user:password123@localhost:8762/eureka/
+#    cache-refresh-executor-thread-pool-size: 40
+#    heartbeat-executor-thread-pool-size: 40
+
+logging:
+  level:
+    root: info
+    com.zzsong: debug
+
+
+feign:
+  hystrix:
+    enabled: true #开启feign断路器功能
+

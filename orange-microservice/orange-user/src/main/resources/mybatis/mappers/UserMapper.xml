@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper代理方式整合dao接口时namespace必须为对应接口的完全限定名 -->
+<mapper namespace="com.zzsong.study.orange.user.mapper.UserMapper">
+    <insert id="addUser" parameterType="user">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT UUID()
+        </selectKey>
+        INSERT INTO user
+        (id, `password`, email, phone, user_name)
+        VALUES
+        (#{id}, #{password}, #{email}, #{phone}, #{userName});
+    </insert>
+
+    <select id="getUser" resultType="user">
+        SELECT *
+        FROM user
+        WHERE password = #{password} AND (email = #{account} OR phone = #{account});
+    </select>
+</mapper>

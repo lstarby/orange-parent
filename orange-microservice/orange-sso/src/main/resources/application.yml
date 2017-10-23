@@ -1,0 +1,16 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 100
+
+  port: 8021
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,text/css,application/javascript
+    min-response-size: 1
+
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true #心跳检查不能放在bootstrap.yml中,否则将导致eureka检测服务状态为UNKNOWN
