@@ -1,7 +1,10 @@
 package com.zzsong.study.orange.sso.controller;
 
+import com.zzsong.study.orange.sso.common.MobileCodeConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -9,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class PageController {
+    private static Logger logger = LoggerFactory.getLogger(PageController.class);
+
+    @Autowired
+    private MobileCodeConfig mobileCodeConfig;
 
     @RequestMapping(path = {"login", "login.html"})
     public String login() {
@@ -22,6 +29,7 @@ public class PageController {
 
     @RequestMapping("/404.html")
     public String err404() {
+        logger.debug("mobileCodeConfig={}", mobileCodeConfig.toString());
         return "404";
     }
 

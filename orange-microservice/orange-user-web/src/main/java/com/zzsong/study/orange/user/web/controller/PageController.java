@@ -1,7 +1,9 @@
 package com.zzsong.study.orange.user.web.controller;
 
+import com.zzsong.study.orange.user.web.common.UriConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PageController {
     private static Logger logger = LoggerFactory.getLogger(PageController.class);
 
+    @Autowired
+    private UriConfig uriConfig;
+
     @RequestMapping(path = {"/index.html", "/index"})
     public String index() {
         return "index";
@@ -19,6 +24,7 @@ public class PageController {
 
     @RequestMapping("/404.html")
     public String err404() {
+        logger.debug("uriConfig={}", uriConfig.toString());
         return "404";
     }
 

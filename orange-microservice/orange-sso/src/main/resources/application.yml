@@ -11,3 +11,4 @@ eureka:
   client:
     healthcheck:
       enabled: true #心跳检查不能放在bootstrap.yml中,否则将导致eureka检测服务状态为UNKNOWN
+
