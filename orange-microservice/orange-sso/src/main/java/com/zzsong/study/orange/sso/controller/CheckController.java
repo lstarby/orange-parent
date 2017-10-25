@@ -2,16 +2,11 @@ package com.zzsong.study.orange.sso.controller;
 
 import com.zzsong.study.orange.common.pojo.Result;
 import com.zzsong.study.orange.sso.feign.UserFeignClient;
-import org.apache.http.HttpResponse;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * Created by zzsong on 2017/10/23.

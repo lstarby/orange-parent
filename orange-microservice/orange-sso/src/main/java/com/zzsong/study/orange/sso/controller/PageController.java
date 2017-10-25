@@ -10,9 +10,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class PageController {
 
-    @RequestMapping("/{page}")
-    public String toPage(@PathVariable String page) {
-        return page;
+    @RequestMapping(path = {"login", "login.html"})
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping(path = {"register", "register.html"})
+    public String register() {
+        return "register";
+    }
+
+    @RequestMapping("/404.html")
+    public String err404() {
+        return "404";
+    }
+
+    @RequestMapping("/500.html")
+    public String err500() {
+        return "500";
     }
 
 }

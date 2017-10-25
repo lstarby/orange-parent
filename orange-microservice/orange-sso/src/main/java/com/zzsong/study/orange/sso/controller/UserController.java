@@ -1,5 +1,6 @@
 package com.zzsong.study.orange.sso.controller;
 
+import com.zzsong.study.orange.common.constants.SessionConstants;
 import com.zzsong.study.orange.common.pojo.Result;
 import com.zzsong.study.orange.common.pojo.table.User;
 import com.zzsong.study.orange.sso.service.RedisService;
@@ -105,7 +106,7 @@ public class UserController {
             return Result.err(result.getMsg());
         }
         User user = result.getData();
-        session.setAttribute("user", user);
+        session.setAttribute(SessionConstants.SESSION_USER_ATTR, user);
         String token = session.getId();
         return Result.ok("ok", token);
     }
