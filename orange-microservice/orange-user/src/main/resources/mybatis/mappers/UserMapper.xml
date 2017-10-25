@@ -4,19 +4,47 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- mapper代理方式整合dao接口时namespace必须为对应接口的完全限定名 -->
 <mapper namespace="com.zzsong.study.orange.user.mapper.UserMapper">
+    <!-- 新增账户 -->
     <insert id="addUser" parameterType="user">
-        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+        <selectKey keyProperty="userId" resultType="String" order="BEFORE">
             SELECT UUID()
         </selectKey>
         INSERT INTO user
-        (id, `password`, email, phone, user_name)
+        (user_id, nick_name, name, gender, birthday, phone, email,
+        `password`, id_card_number, payment_password)
         VALUES
-        (#{id}, #{password}, #{email}, #{phone}, #{userName});
+        (#{userId}, #{nickName}, #{name}, #{gender}, #{birthday}, #{phone}, #{email},
+        #{password}, #{idCardNumber}, #{paymentPassword});
     </insert>
 
+    <!-- 账号密码查询账户 -->
     <select id="getUser" resultType="user">
-        SELECT *
+        SELECT
+            user_id,
+            nick_name,
+            name,
+            gender,
+            birthday,
+            phone,
+            email,
+            password,
+            account_state,
+            create_time,
+            state_time,
+            membership_grade,
+            id_card_number,
+            payment_password
         FROM user
         WHERE password = #{password} AND (email = #{account} OR phone = #{account});
+    </select>
+
+    <select id="checkAccount" parameterType="user" resultType="int">
+        SELECT
+        COUNT(user_id)
+        FROM user
+        <where>
+            <if test="phone != null">phone = #{phone}</if>
+            <if test="email != null">OR email = #{email}</if>
+        </where>
     </select>
 </mapper>

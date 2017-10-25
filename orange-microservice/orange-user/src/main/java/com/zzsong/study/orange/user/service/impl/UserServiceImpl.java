@@ -35,33 +35,62 @@ public class UserServiceImpl implements UserService {
         int i = 0;
         try {
             user.setPassword(MD5Hash.md5(password));
-            logger.debug("User: {} insert to database!");
             i = userMapper.addUser(user);
         } catch (Exception e) {
             logger.info("insert user to database throw exception:{}", e.getMessage());
         }
         if (i > 0) {
-            return Result.ok("ok", user.getId());
+            return Result.ok("ok", user.getUserId());
         } else {
-            return Result.err("新增账号失败");
+            return Result.err("新增账号失败!");
         }
     }
 
     @Override
     public Result<User> getUser(String account, String password) {
-        logger.debug("getUser : account = {} , password = {}", account, password);
         if (StringUtils.isBlank(account) || StringUtils.isBlank(password)) {
-            logger.debug("用户名或密码为空");
-            return Result.err("用户名或密码为空");
+            logger.debug("用户名或密码不可为空!");
+            return Result.err("用户名或密码不可为空!");
         }
         List<User> users = userMapper.getUser(account, MD5Hash.md5(password));
         if (users.size() == 0) {
-            logger.debug("用户名或密码错误");
-            return Result.err("用户名或密码错误");
+            logger.debug("用户名或密码错误!");
+            return Result.err("用户名或密码错误!");
         }
         User u = users.get(0);
         u.setPassword(null);
-        logger.debug("getUser : user = {}", u.toString());
         return Result.ok("ok", u);
+    }
+
+    @Override
+    public Result<String> checkEmail(String email) {
+        if (StringUtils.isBlank(email)) {
+            logger.debug("邮箱不可为空!");
+            return Result.err("邮箱不可为空!");
+        }
+        User user = new User();
+        user.setEmail(email);
+        int i = userMapper.checkAccount(user);
+        if (i > 0) {
+            return Result.err("该邮箱已存在!");
+        } else {
+            return Result.ok();
+        }
+    }
+
+    @Override
+    public Result<String> checkPhone(String phone) {
+        if (StringUtils.isBlank(phone)) {
+            logger.debug("手机号码不可为空!");
+            return Result.err("手机号码不可为空!");
+        }
+        User user = new User();
+        user.setPhone(phone);
+        int i = userMapper.checkAccount(user);
+        if (i > 0) {
+            return Result.err("该手机号已存在!");
+        } else {
+            return Result.ok();
+        }
     }
 }

@@ -35,7 +35,10 @@ public class UserController {
      */
     @PostMapping("/addUser")
     public Result<String> addUser(@RequestBody User user) {
-        return userService.addUser(user);
+        logger.debug("addUser : user = {}", user.toString());
+        Result<String> result = userService.addUser(user);
+        logger.debug("addUser : result = {}", result.toString());
+        return result;
     }
 
     /**
@@ -48,6 +51,9 @@ public class UserController {
     @PostMapping("/getUser")
     public Result<User> getUser(@RequestParam String account,
                                 @RequestParam String password) {
-        return userService.getUser(account, password);
+        logger.debug("getUser : account = {} , password = {}", account, password);
+        Result<User> result = userService.getUser(account, password);
+        logger.debug("getUser : result = {}", result.toString());
+        return result;
     }
 }
