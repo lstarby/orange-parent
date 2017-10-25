@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 新增的时间操作工具,经压测该工具的效率约是之前的DateUtil工具类的5倍
+ * 时间操作工具
  * Created by zzsong on 2017/8/18.
  */
 public class DateUtils {
