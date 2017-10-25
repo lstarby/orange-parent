@@ -1,4 +1,4 @@
-package com.zzsong.study.orange.sso.common;
+package com.zzsong.study.orange.common.constants;
 
 /**
  * Created by zzsong on 2017/10/15.
@@ -11,6 +11,6 @@ public interface RspCode {
     /**
      * 业务上处理失败
      */
-    Integer ERR_204 = 204;
+    Integer ERR_400 = 400;
 
 }

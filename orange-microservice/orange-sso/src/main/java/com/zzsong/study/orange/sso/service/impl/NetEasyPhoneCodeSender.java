@@ -1,9 +1,10 @@
-package com.zzsong.study.orange.sso.bean.impl;
+package com.zzsong.study.orange.sso.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.zzsong.study.orange.common.constants.RspCode;
 import com.zzsong.study.orange.common.pojo.Result;
 import com.zzsong.study.orange.common.util.SHA1Encod;
-import com.zzsong.study.orange.sso.bean.PhoneCodeSender;
+import com.zzsong.study.orange.sso.service.PhoneCodeSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,10 @@ import java.util.*;
 /**
  * Created by zzsong on 2017/10/24.
  */
-@Component("phoneCodeSender")
 public class NetEasyPhoneCodeSender implements PhoneCodeSender {
     private static Logger logger = LoggerFactory.getLogger(NetEasyPhoneCodeSender.class);
 
-    @Autowired
-    private RestTemplate template;
+    private final RestTemplate template;
 
     //发送验证码的请求路径URL
     private static final String
@@ -42,6 +41,10 @@ public class NetEasyPhoneCodeSender implements PhoneCodeSender {
     private static final String TEMPLATEID = "3057527";
     //验证码长度，范围4～10，默认为4
     private static final String CODELEN = "6";
+
+    public NetEasyPhoneCodeSender(RestTemplate template) {
+        this.template = template;
+    }
 
     @Override
     public Result<String> send(String phone) {
@@ -73,7 +76,7 @@ public class NetEasyPhoneCodeSender implements PhoneCodeSender {
         if (body == null) {
             return Result.err("rsp.getBody() is null!");
         } else {
-            if (body.code != 200) {
+            if (!Objects.equals(body.code, RspCode.SUCC_200)) {
                 return Result.err(body.msg);
             } else {
                 return Result.ok(body.msg, body.obj);

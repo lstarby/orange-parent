@@ -10,7 +10,7 @@ spring:
       trace:
         enabled: true
   application:
-    name: orange-sso
+    name: orange-user-web
   thymeleaf:
     mode: HTML5
     encoding: UTF-8

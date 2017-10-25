@@ -2,7 +2,7 @@ package com.zzsong.study.orange.sso.controller;
 
 import com.zzsong.study.orange.common.pojo.Result;
 import com.zzsong.study.orange.common.util.RandomUtils;
-import com.zzsong.study.orange.sso.bean.RedisService;
+import com.zzsong.study.orange.sso.service.RedisService;
 import com.zzsong.study.orange.sso.common.MobileCodeConfig;
 import com.zzsong.study.orange.sso.util.KeyUtils;
 import org.apache.commons.lang3.StringUtils;

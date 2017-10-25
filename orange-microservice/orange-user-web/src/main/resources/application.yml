@@ -7,36 +7,7 @@ server:
     mime-types: application/json,application/xml,text/html,text/xml,text/plain,text/css,application/javascript
     min-response-size: 1
 
-spring:
-  application:
-    name: orange-user-web
-  thymeleaf:
-    mode: HTML5
-    encoding: UTF-8
-    content-type: text/html
-    cache: false #开发时关闭缓存
-  redis:
-    database: 0
-    host: 127.0.0.1
-    port: 6379
-    timeout: 100
-    pool:
-      max-active: 100
-      max-wait: 500
-      min-idle: 0
-
-logging:
-  level:
-    root: INFO
-    com.zzsong: DEBUG
-
 eureka:
   client:
     healthcheck:
-      enabled: true
-    serviceUrl:
-      defaultZone: http://user:password123@localhost:8761/eureka,http://user:password123@localhost:8762/eureka
-
-feign:
-  hystrix:
-    enabled: true #开启feign断路器功能
+      enabled: true #心跳检查不能放在bootstrap.yml中,否则将导致eureka检测服务状态为UNKNOWN

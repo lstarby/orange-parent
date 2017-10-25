@@ -17,14 +17,11 @@ import java.util.List;
 /**
  * Created by zzsong on 2017/10/13.
  */
-@Service
 @Transactional
 public class UserServiceImpl implements UserService {
     private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserMapper userMapper;
 
-    @Autowired
-    @SuppressWarnings("SpringJavaAutowiringInspection") // 加这个注解让IDE 不报: Could not autowire
     public UserServiceImpl(UserMapper userMapper) {
         this.userMapper = userMapper;
     }

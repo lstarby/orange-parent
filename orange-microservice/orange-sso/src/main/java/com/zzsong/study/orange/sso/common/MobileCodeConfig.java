@@ -1,12 +1,16 @@
 package com.zzsong.study.orange.sso.common;
 
 import com.alibaba.fastjson.JSON;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 /**
  * Created by zzsong on 2017/10/25.
  */
 @Component
+@RefreshScope
+@ConfigurationProperties(prefix = "mobileCode")
 public class MobileCodeConfig {
     // 验证码请求间隔时间,秒
     private long interval = 60;

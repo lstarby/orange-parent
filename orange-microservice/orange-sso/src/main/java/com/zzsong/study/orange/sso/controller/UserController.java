@@ -2,9 +2,9 @@ package com.zzsong.study.orange.sso.controller;
 
 import com.zzsong.study.orange.common.pojo.Result;
 import com.zzsong.study.orange.common.pojo.table.User;
-import com.zzsong.study.orange.sso.bean.RedisService;
+import com.zzsong.study.orange.sso.service.RedisService;
 import com.zzsong.study.orange.sso.feign.UserFeignClient;
-import com.zzsong.study.orange.sso.common.RspCode;
+import com.zzsong.study.orange.common.constants.RspCode;
 import com.zzsong.study.orange.sso.util.KeyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.Objects;
 
 
 /**
@@ -99,7 +100,7 @@ public class UserController {
         }
         Result<User> result = userFeignClient.getUser(account, password);
         logger.debug("result = {}", result.toString());
-        if (result.getStatus() != 200) {
+        if (!Objects.equals(result.getStatus(), RspCode.SUCC_200)) {
             logger.debug("登录验证失败 , msg = {}", result.getMsg());
             return Result.err(result.getMsg());
         }

@@ -35,11 +35,6 @@ public class CheckController {
      */
     @PostMapping("/checkEmail")
     public Result<String> checkEmail(String email) {
-
-        PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
-        cm.setMaxTotal(200);
-        cm.setDefaultMaxPerRoute(20);
-
         Result<String> result = userFeignClient.checkEmail(email);
         logger.debug("checkEmail: email = {}, result = {}, msg = {}", email, result.getStatus(), result.getMsg());
         return result;

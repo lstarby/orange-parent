@@ -1,8 +1,6 @@
 server:
   tomcat:
     uri-encoding: UTF-8
-    max-threads: 100
-
   port: 8021
   compression:
     enabled: true

@@ -1,9 +1,7 @@
-package com.zzsong.study.orange.sso.bean.impl;
+package com.zzsong.study.orange.sso.service.impl;
 
-import com.zzsong.study.orange.sso.bean.RedisService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.zzsong.study.orange.sso.service.RedisService;
 import org.springframework.data.redis.core.*;
-import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -14,15 +12,12 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by zzsong on 2017/10/24.
  */
-@Service("redisService")
 public class RedisServiceImpl implements RedisService {
     private final RedisTemplate redisTemplate;
 
-    @Autowired
     public RedisServiceImpl(RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
-
 
     public boolean set(final String key, Object value) {
         boolean result = false;

@@ -1,4 +1,4 @@
-package com.zzsong.study.orange.sso.bean;
+package com.zzsong.study.orange.sso.service;
 
 import com.zzsong.study.orange.common.pojo.Result;
 

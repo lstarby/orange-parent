@@ -15,7 +15,7 @@ eureka:
   client:
     service-url:
 #     这一行配置主要起到的作用是将当前的eureka注册到端口为8762的这一个eureka上去。
-      defaultZone: http://user:password123@localhost:8761/eureka/,http://user:password123@localhost:8762/eureka/
+      defaultZone: http://user:password123@localhost:8761/eureka/ #,http://user:password123@localhost:8762/eureka/
     healthcheck:
       enabled: true # Eureka健康检查
   instance:

@@ -1,4 +1,4 @@
-package com.zzsong.study.orange.sso.bean;
+package com.zzsong.study.orange.sso.service;
 
 import java.util.List;
 import java.util.Set;
