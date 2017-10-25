@@ -2,11 +2,13 @@ package com.zzsong.study.orange.common.pojo.table;
 
 import com.alibaba.fastjson.JSON;
 
+import java.io.Serializable;
+
 /**
  * 安全问题答案
  * Created by zzsong on 2017/10/23.
  */
-public class SafetyQuestionAnswer {
+public class SafetyQuestionAnswer implements Serializable {
     /**
      * 安全问题答案主键
      */

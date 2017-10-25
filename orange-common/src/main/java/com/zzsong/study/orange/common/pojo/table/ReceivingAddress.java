@@ -1,10 +1,12 @@
 package com.zzsong.study.orange.common.pojo.table;
 
+import java.io.Serializable;
+
 /**
  * 收货地址
  * Created by zzsong on 2017/10/23.
  */
-public class ReceivingAddress {
+public class ReceivingAddress implements Serializable {
     /**
      * 收货地址id
      */
