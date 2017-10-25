@@ -1,0 +1,60 @@
+package com.zzsong.study.orange.sso.controller;
+
+import com.zzsong.study.orange.common.pojo.Result;
+import com.zzsong.study.orange.sso.feign.UserFeignClient;
+import org.apache.http.HttpResponse;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+/**
+ * Created by zzsong on 2017/10/23.
+ */
+@RestController
+public class CheckController {
+    private static Logger logger = LoggerFactory.getLogger(CheckController.class);
+
+    private final UserFeignClient userFeignClient;
+
+    @Autowired
+    public CheckController(UserFeignClient userFeignClient) {
+        this.userFeignClient = userFeignClient;
+    }
+
+    /**
+     * 判断邮箱是否可用
+     *
+     * @param email 邮箱
+     * @return 200:可用,邮箱不存在 400:不可用,邮箱已存在
+     */
+    @PostMapping("/checkEmail")
+    public Result<String> checkEmail(String email) {
+
+        PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
+        cm.setMaxTotal(200);
+        cm.setDefaultMaxPerRoute(20);
+
+        Result<String> result = userFeignClient.checkEmail(email);
+        logger.debug("checkEmail: email = {}, result = {}, msg = {}", email, result.getStatus(), result.getMsg());
+        return result;
+    }
+
+    /**
+     * 判断手机号码是否可用
+     *
+     * @param phone 手机号码
+     * @return 200:可用,手机不存在 400:不可用,手机已存在
+     */
+    @PostMapping("/checkPhone")
+    public Result<String> checkPhone(String phone) {
+        Result<String> result = userFeignClient.checkPhone(phone);
+        logger.debug("checkPhone: phone = {}, result = {}, msg = {}", phone, result.getStatus(), result.getMsg());
+        return result;
+    }
+}

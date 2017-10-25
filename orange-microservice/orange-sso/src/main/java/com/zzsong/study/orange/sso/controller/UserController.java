@@ -2,17 +2,15 @@ package com.zzsong.study.orange.sso.controller;
 
 import com.zzsong.study.orange.common.pojo.Result;
 import com.zzsong.study.orange.common.pojo.table.User;
-import com.zzsong.study.orange.sso.common.Config;
+import com.zzsong.study.orange.sso.bean.RedisService;
 import com.zzsong.study.orange.sso.feign.UserFeignClient;
 import com.zzsong.study.orange.sso.common.RspCode;
+import com.zzsong.study.orange.sso.util.KeyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -22,30 +20,30 @@ import javax.servlet.http.HttpSession;
  * Created by zzsong on 2017/10/13.
  */
 @RestController
-@RefreshScope
+//@RefreshScope
 public class UserController {
 
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    private final Config config;
 
     private final UserFeignClient userFeignClient;
 
+    private final RedisService redisService;
+
 
     @Autowired
-    public UserController(UserFeignClient userFeignClient, Config config) {
+    public UserController(UserFeignClient userFeignClient, RedisService redisService) {
         this.userFeignClient = userFeignClient;
-        this.config = config;
+        this.redisService = redisService;
     }
 
-    @Value("${foo}")
-    private String foo;
-
-    @RequestMapping(value = "/hi")
-    public String hi() {
-        return foo;
-    }
-
+    /**
+     * 注册账号
+     *
+     * @param user User Object
+     * @param code 验证码
+     * @return Result<String>
+     */
     @PostMapping("/register")
     public Result<String> register(User user, String code) {
         String phone = user.getPhone();
@@ -60,8 +58,14 @@ public class UserController {
                 logger.debug("手机验证码不可为空");
                 return Result.err("手机验证码不可为空");
             }
+            String key = KeyUtils.createMobileCodeKey(phone, code);
+            Object o = redisService.get(key);
+            if (o == null) {
+                logger.debug("验证码错误!");
+                return Result.err("验证码错误!");
+            }
             Result<String> checkPhone = userFeignClient.checkPhone(phone);
-            if (RspCode.SUCC_200.equals(checkPhone.getStatus())) {
+            if (!RspCode.SUCC_200.equals(checkPhone.getStatus())) {
                 return Result.err("该手机号已被使用");
             }
         }
@@ -78,8 +82,16 @@ public class UserController {
         }
     }
 
+    /**
+     * 登录验证
+     *
+     * @param account  账号
+     * @param password 密码
+     * @param session  HttpSession
+     * @return Result<String>
+     */
     @PostMapping("/login")
-    public Result<String> login(String account, String password,HttpSession session) {
+    public Result<String> login(String account, String password, HttpSession session) {
         logger.debug("login : account = {} , password = {}", account, password);
         if (StringUtils.isBlank(account) || StringUtils.isBlank(password)) {
             logger.debug("用户名或密码为空");

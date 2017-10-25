@@ -75,8 +75,7 @@
               <div class="verification">
                 <label for="code"><i class="am-icon-code-fork"></i></label>
                 <input type="tel" name="" id="code" placeholder="请输入验证码"/>
-                <a class="btn" href="javascript:void(0);" onclick="sendMobileCode();"
-                   id="sendMobileCode">
+                <a class="btn" id="sendMobileCode" style="cursor: pointer">
                   <span id="dyMobileButton">获取</span></a>
               </div>
               <div class="user-pass">
@@ -105,21 +104,81 @@
               $(function () {
                   $('#doc-my-tabs').tabs();
 
-//                邮箱注册
+                  // 验证邮箱
+                  $('#email').change(function () {
+                      var email = $("#email").val();
+                      console.log(email);
+                      $.post("/checkEmail", {
+                              "email": email
+                          },
+                          function (data) {
+                              if (data.status !== 200) {
+                                  alert("该邮箱已经被使用!");
+                              }
+                          }, "json");
+                  });
+
+                  // 验证手机
+                  $('#phone').change(function () {
+                      var phone = $("#phone").val();
+                      console.log(phone);
+                      $.post("/checkPhone", {
+                              "phone": phone
+                          },
+                          function (data) {
+                              if (data.status !== 200) {
+                                  alert("该手机号已经被使用!");
+                              }
+                          }, "json");
+                  });
+
+                  // 获取手机验证码
+                  $('#sendMobileCode').click(function () {
+                      var phone = $("#phone").val();
+                      $.get("/sendMobileCode", {
+                              "phone": phone
+                          },
+                          function (data) {
+                              console.log(data.status);
+                              if (data.status !== 200) {
+                                  alert(data.msg);
+                              }
+                          }, "json");
+                  });
+
+                  // 邮箱注册
                   $("#register1").click(
                       function () {
                           var email = $("#email").val();
                           var password = $("#password1").val();
                           var passwordRepeat = $("#passwordRepeat1").val();
-                          $.post("/register", {
-                                  "email": email,
-                                  "password": password
-                              },
-                              function (data) {
-                                  alert(data.status);
-                                  console.log(data.msg);
-                                  console.log(data.data);
-                              }, "json");
+                          var flag = true;
+                          var errMsg = '';
+                          if (email === null || email === '') {
+                              flag = false;
+                              errMsg += '邮箱不可为空!';
+                          }
+                          if (password === null || password === '') {
+                              flag = false;
+                              errMsg += '密码不可为空!';
+                          }
+                          if (password !== passwordRepeat) {
+                              flag = false;
+                              errMsg += '两次密码输入不一致!';
+                          }
+                          if (flag) {
+                              $.post("/register", {
+                                      "email": email,
+                                      "password": password
+                                  },
+                                  function (data) {
+                                      alert(data.status);
+                                      console.log(data.msg);
+                                      console.log(data.data);
+                                  }, "json");
+                          } else {
+                              alert(errMsg);
+                          }
                       }
                   );
 
@@ -130,16 +189,38 @@
                           var code = $("#code").val();
                           var password = $("#password").val();
                           var passwordRepeat = $("#passwordRepeat").val();
-                          $.post("/register", {
-                                  "phone": phone,
-                                  "code": code,
-                                  "password": password
-                              },
-                              function (data) {
-                                  alert(data.status);
-                                  console.log(data.msg);
-                                  console.log(data.data);
-                              }, "json");
+                          var flag = true;
+                          var errMsg = '';
+                          if (phone === null || phone === '') {
+                              flag = false;
+                              errMsg += '手机号码不可为空!';
+                          }
+                          if (password === null || password === '') {
+                              flag = false;
+                              errMsg += '密码不可为空!';
+                          }
+                          if (code === null || code === '') {
+                              flag = false;
+                              errMsg += '手机验证码不可为空!';
+                          }
+                          if (password !== passwordRepeat) {
+                              flag = false;
+                              errMsg += '两次密码输入不一致!';
+                          }
+                          if (flag) {
+                              $.post("/register", {
+                                      "phone": phone,
+                                      "code": code,
+                                      "password": password
+                                  },
+                                  function (data) {
+                                      alert(data.status);
+                                      console.log(data.msg);
+                                      console.log(data.data);
+                                  }, "json");
+                          } else {
+                              alert(errMsg);
+                          }
                       }
                   );
               });

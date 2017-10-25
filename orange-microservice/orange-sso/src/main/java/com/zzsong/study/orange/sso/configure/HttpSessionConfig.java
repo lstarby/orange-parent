@@ -19,6 +19,7 @@ public class HttpSessionConfig {
         cookieSerializer.setCookieName("ORANGE-TOKEN");
         CookieHttpSessionStrategy cookieHttpSessionStrategy = new CookieHttpSessionStrategy();
         cookieHttpSessionStrategy.setCookieSerializer(cookieSerializer);
+
         return cookieHttpSessionStrategy;
     }
 }

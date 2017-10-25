@@ -1,14 +1,14 @@
 spring:
-  cloud:
-    config:
-      label: master
-      profile: dev
-      discovery:
-        enabled: true
-        service-id: orange-config-server
-    bus:
-      trace:
-        enabled: true
+#  cloud:
+#    config:
+#      label: master
+#      profile: dev
+#      discovery:
+#        enabled: true
+#        service-id: orange-config-server
+#    bus:
+#      trace:
+#        enabled: true
   application:
     name: orange-sso
   thymeleaf:
@@ -22,14 +22,15 @@ spring:
     port: 6379
     timeout: 100
     pool:
-      max-active: 100
       max-wait: 500
+      max-active: 20
+      max-idle: 20
       min-idle: 0
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
+#  rabbitmq:
+#    host: 127.0.0.1
+#    port: 5672
+#    username: guest
+#    password: guest
 
 management:
   security:
@@ -39,8 +40,8 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://user:password123@localhost:8761/eureka/,http://user:password123@localhost:8762/eureka/
-    cache-refresh-executor-thread-pool-size: 40
-    heartbeat-executor-thread-pool-size: 40
+#    cache-refresh-executor-thread-pool-size: 40
+#    heartbeat-executor-thread-pool-size: 40
 
 logging:
   level:
