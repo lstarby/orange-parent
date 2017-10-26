@@ -103,9 +103,11 @@
                 <a href="information.html">
                   <img src="/images/getAvatar.do.jpg"/>
                 </a>
-                <em class="s-name">(小叮当)</em>
+                <!--/*@thymesVar id="user" type="com.zzsong.study.orange.common.pojo.table.User"*/-->
+                <!--/*@thymesVar id="nickName" type="nickName"*/-->
+                <em class="s-name" th:text="${user.nickName}">(小叮当)</em>
                 <div class="s-prestige am-btn am-round">
-                  <span class="vip1">会员福利</span>
+                  <span>会员福利</span>
                 </div>
               </div>
               <div class="m-right">
@@ -224,7 +226,8 @@
                 <li class="lg-item">
                   <div class="item-info">
                     <a href="#">
-                      <img src="/images/65.jpg_120x120xz.jpg" alt="抗严寒冬天保暖隔凉羊毛毡底鞋垫超薄0.35厘米厚吸汗排湿气舒适"/>
+                      <img src="/images/65.jpg_120x120xz.jpg"
+                           alt="抗严寒冬天保暖隔凉羊毛毡底鞋垫超薄0.35厘米厚吸汗排湿气舒适"/>
                     </a>
 
                   </div>
