@@ -99,7 +99,11 @@ public class UserController {
             logger.debug("用户名或密码为空");
             return Result.err("用户名或密码为空");
         }
-        Result<User> result = userFeignClient.getUser(account, password);
+        User u = new User();
+        u.setPassword(password);
+        u.setPhone(account);
+        u.setEmail(account);
+        Result<User> result = userFeignClient.getUser(u);
         logger.debug("result = {}", result.toString());
         if (!Objects.equals(result.getStatus(), RspCode.SUCC_200)) {
             logger.debug("登录验证失败 , msg = {}", result.getMsg());

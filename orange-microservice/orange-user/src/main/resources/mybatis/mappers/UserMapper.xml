@@ -10,35 +10,40 @@
             SELECT UUID()
         </selectKey>
         INSERT INTO user
-        (user_id, nick_name, name, gender, birthday, phone, email,
-        `password`, id_card_number, payment_password)
+        (user_id, nick_name, name, gender, birthday, phone,
+        email, `password`, id_card_number, payment_password)
         VALUES
         (#{userId}, #{nickName}, #{name}, #{gender}, #{birthday}, #{phone}, #{email},
         #{password}, #{idCardNumber}, #{paymentPassword});
     </insert>
 
     <!-- 账号密码查询账户 -->
-    <select id="getUser" resultType="user">
+    <select id="getUser" parameterType="user" resultType="user">
         SELECT
-            user_id,
-            nick_name,
-            name,
-            gender,
-            birthday,
-            phone,
-            email,
-            password,
-            account_state,
-            create_time,
-            state_time,
-            membership_grade,
-            id_card_number,
-            payment_password
+        user_id,
+        nick_name,
+        name,
+        gender,
+        birthday,
+        phone,
+        email,
+        password,
+        account_state,
+        create_time,
+        state_time,
+        membership_grade,
+        id_card_number,
+        payment_password,
+        is_real_authentication
         FROM user
-        WHERE password = #{password} AND (email = #{account} OR phone = #{account});
+        <where>
+            `password` = #{password}
+            AND
+            (user_id = #{userId} OR phone = #{phone} OR email = #{email})
+        </where>
     </select>
 
-    <select id="checkAccount" parameterType="user" resultType="int">
+    <select id="checkUser" parameterType="user" resultType="int">
         SELECT
         COUNT(user_id)
         FROM user

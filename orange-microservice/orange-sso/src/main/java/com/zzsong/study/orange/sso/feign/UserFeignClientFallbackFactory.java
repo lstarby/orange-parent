@@ -26,7 +26,7 @@ public class UserFeignClientFallbackFactory implements FallbackFactory<UserFeign
             }
 
             @Override
-            public Result<User> getUser(String account, String password) {
+            public Result<User> getUser(User user) {
                 logger.info("fallback, User服务访问失败: {}", throwable.getMessage());
                 return Result.err("User服务访问失败!");
             }

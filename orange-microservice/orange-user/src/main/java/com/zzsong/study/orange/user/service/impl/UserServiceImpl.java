@@ -8,8 +8,6 @@ import com.zzsong.study.orange.user.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -44,12 +42,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result<User> getUser(String account, String password) {
-        if (StringUtils.isBlank(account) || StringUtils.isBlank(password)) {
-            logger.debug("用户名或密码不可为空!");
-            return Result.err("用户名或密码不可为空!");
+    public Result<User> getUser(User user) {
+        String password = user.getPassword();
+        String userId = user.getUserId();
+        String phone = user.getPhone();
+        String email = user.getEmail();
+        if (StringUtils.isBlank(password)) {
+            logger.debug("密码不可为空!");
+            return Result.err("账号或密码不可为空!");
         }
-        List<User> users = userMapper.getUser(account, MD5Hash.md5(password));
+        if (StringUtils.isBlank(userId)
+                && StringUtils.isBlank(phone)
+                && StringUtils.isBlank(email)) {
+            logger.debug("账号不可为空!");
+            return Result.err("账号或密码不可为空!");
+        }
+        user.setPassword(MD5Hash.md5(password));
+        List<User> users = userMapper.getUser(user);
         if (users.size() == 0) {
             logger.debug("用户名或密码错误!");
             return Result.err("用户名或密码错误!");
@@ -67,7 +76,7 @@ public class UserServiceImpl implements UserService {
         }
         User user = new User();
         user.setEmail(email);
-        int i = userMapper.checkAccount(user);
+        int i = userMapper.checkUser(user);
         if (i > 0) {
             return Result.err("该邮箱已存在!");
         } else {
@@ -83,7 +92,7 @@ public class UserServiceImpl implements UserService {
         }
         User user = new User();
         user.setPhone(phone);
-        int i = userMapper.checkAccount(user);
+        int i = userMapper.checkUser(user);
         if (i > 0) {
             return Result.err("该手机号已存在!");
         } else {

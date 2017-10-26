@@ -11,7 +11,7 @@
  Target Server Version : 50715
  File Encoding         : 65001
 
- Date: 25/10/2017 09:19:40
+ Date: 26/10/2017 14:51:03
 */
 
 SET NAMES utf8mb4;
@@ -66,7 +66,7 @@ CREATE TABLE `user` (
   `nick_name` varchar(20) DEFAULT NULL COMMENT '昵称',
   `name` varchar(20) DEFAULT NULL COMMENT '真实姓名',
   `gender` int(1) DEFAULT '3' COMMENT '性别 0:女 1:男 2:其他 3:保密',
-  `birthday` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '生日',
+  `birthday` date DEFAULT NULL COMMENT '生日',
   `phone` varchar(20) DEFAULT NULL COMMENT '手机',
   `email` varchar(50) DEFAULT NULL COMMENT '邮箱',
   `password` varchar(60) NOT NULL COMMENT '密码',
@@ -76,6 +76,7 @@ CREATE TABLE `user` (
   `membership_grade` int(1) unsigned NOT NULL DEFAULT '1' COMMENT '会员等级',
   `id_card_number` varchar(40) DEFAULT NULL COMMENT '身份证号码',
   `payment_password` varchar(40) DEFAULT NULL COMMENT '支付密码',
+  `is_real_authentication` int(1) NOT NULL COMMENT '是否实名 0:否 1:是',
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
 
@@ -83,8 +84,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('a19c3eb2-b7cb-11e7-932a-3e81cd7e10d5', NULL, NULL, NULL, NULL, '111', '111@qq.com', '698d51a19d8a121ce581499d7b701668', 0, '2017-10-23 16:24:47', '2017-10-23 16:24:47', 1, NULL, NULL);
-INSERT INTO `user` VALUES ('aa3a1980-b8d5-11e7-932a-3e81cd7e10d5', NULL, NULL, NULL, NULL, '123', NULL, '698D51A19D8A121CE581499D7B701668', 0, '2017-10-25 00:09:08', '2017-10-25 00:09:08', 1, NULL, NULL);
+INSERT INTO `user` VALUES ('5d56c366-b9f2-11e7-837d-275227cf9789', 'song', '宋志宗', 1, '1991-02-10', '111', '111@qq.com', '698D51A19D8A121CE581499D7B701668', 0, '2017-10-26 10:07:05', '2017-10-26 10:07:05', 1, '342921199102104436', '123', 0);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

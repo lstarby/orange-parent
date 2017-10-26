@@ -22,13 +22,11 @@ public interface UserFeignClient {
     /**
      * 查询用户
      *
-     * @param account  账号(邮箱 手机)
-     * @param password 密码
+     * @param user (password+(userid | phone | email))
      * @return Result<User>
      */
     @RequestMapping(value = "/getUser", method = RequestMethod.POST)
-    Result<User> getUser(@RequestParam("account") String account,
-                         @RequestParam("password") String password);
+    Result<User> getUser(@RequestBody User user);
 
     /**
      * 判断邮箱是否可用

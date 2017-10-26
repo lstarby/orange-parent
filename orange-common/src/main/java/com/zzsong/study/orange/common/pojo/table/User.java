@@ -66,6 +66,10 @@ public class User implements Serializable {
      * 支付密码
      */
     private String paymentPassword;
+    /**
+     * 是否实名认证, 1:是 0:否
+     */
+    private Integer isRealAuthentication;
 
     /**
      * 用户主键
@@ -261,6 +265,20 @@ public class User implements Serializable {
      */
     public void setPaymentPassword(String paymentPassword) {
         this.paymentPassword = paymentPassword;
+    }
+
+    /**
+     * 是否实名认证, 1:是 0:否
+     */
+    public Integer getIsRealAuthentication() {
+        return isRealAuthentication;
+    }
+
+    /**
+     * 是否实名认证, 1:是 0:否
+     */
+    public void setIsRealAuthentication(Integer isRealAuthentication) {
+        this.isRealAuthentication = isRealAuthentication;
     }
 
     @Override

@@ -18,13 +18,12 @@ public interface UserMapper {
     int addUser(User user);
 
     /**
-     * 通过(手机+密码 | 邮箱+密码)的组合获取用户数据
+     * 通过(手机+密码 | 邮箱+密码 | userId+密码)的组合获取用户数据
      *
-     * @param account  手机或邮箱
-     * @param password 密码
+     * @param user (password+(userid | phone | email))
      * @return List<User>
      */
-    List<User> getUser(@Param("account") String account, @Param("password") String password);
+    List<User> getUser(User user);
 
     /**
      * 验证(手机 | 邮箱是否已经存在)
@@ -36,5 +35,5 @@ public interface UserMapper {
      * @param user user.phone | user.email
      * @return 符合条件的数量
      */
-    int checkAccount(User user);
+    int checkUser(User user);
 }

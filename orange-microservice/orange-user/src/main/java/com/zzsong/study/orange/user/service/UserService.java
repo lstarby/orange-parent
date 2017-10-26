@@ -19,11 +19,10 @@ public interface UserService {
     /**
      * 通过账号密码查询用户
      *
-     * @param account  账号(邮箱 手机)
-     * @param password 密码
+     * @param user (password+(userid | phone | email))
      * @return Result<User>
      */
-    Result<User> getUser(String account, String password);
+    Result<User> getUser(User user);
 
     /**
      * 检验邮箱是否可用

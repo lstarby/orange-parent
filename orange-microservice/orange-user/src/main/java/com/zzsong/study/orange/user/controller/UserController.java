@@ -44,16 +44,25 @@ public class UserController {
     /**
      * 查询用户
      *
-     * @param account  账号(邮箱 手机)
-     * @param password 密码
+     * @param user (password+(userid | phone | email))
      * @return Result<User>
      */
     @PostMapping("/getUser")
-    public Result<User> getUser(@RequestParam String account,
-                                @RequestParam String password) {
-        logger.debug("getUser : account = {} , password = {}", account, password);
-        Result<User> result = userService.getUser(account, password);
+    public Result<User> getUser(@RequestBody User user) {
+        logger.debug("getUser : user = {}", user.toString());
+        Result<User> result = userService.getUser(user);
         logger.debug("getUser : result = {}", result.toString());
         return result;
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param user ()
+     * @return Result<String>
+     */
+    @PostMapping("changePassword")
+    public Result<String> changePassword(@RequestBody User user) {
+        return Result.ok();
     }
 }
