@@ -1,7 +1,9 @@
 package com.zzsong.study.orange.user.web.configure;
 
 import com.zzsong.study.orange.user.web.service.RedisService;
+import com.zzsong.study.orange.user.web.service.UserService;
 import com.zzsong.study.orange.user.web.service.impl.RedisServiceImpl;
+import com.zzsong.study.orange.user.web.service.impl.UserServiceImpl;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +21,11 @@ public class BeanConfigure {
     @Bean
     public RedisService redisService(RedisTemplate redisTemplate) {
         return new RedisServiceImpl(redisTemplate);
+    }
+
+    @Bean
+    public UserService userService() {
+        return new UserServiceImpl();
     }
 
     @Bean
