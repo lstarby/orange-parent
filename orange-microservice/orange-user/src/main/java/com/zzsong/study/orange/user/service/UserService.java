@@ -39,4 +39,13 @@ public interface UserService {
      * @return 200:可用,手机不存在 400:不可用,手机已存在
      */
     Result<String> checkPhone(String phone);
+
+    /**
+     * 修改密码
+     *
+     * @param user        (password+(userid | phone | email))
+     * @param newPassword 新密码
+     * @return Result<String>
+     */
+    Result<String> changePassword(User user, String newPassword);
 }

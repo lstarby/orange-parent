@@ -1,13 +1,16 @@
 package com.zzsong.study.orange.user.service.impl;
 
+import com.zzsong.study.orange.user.pojo.LogObject;
 import com.zzsong.study.orange.common.pojo.Result;
 import com.zzsong.study.orange.common.pojo.table.User;
 import com.zzsong.study.orange.common.util.MD5Hash;
 import com.zzsong.study.orange.user.mapper.UserMapper;
 import com.zzsong.study.orange.user.service.UserService;
+import com.zzsong.study.orange.user.util.TransactionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -24,6 +27,7 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
+    private MongoTemplate mongoTemplate;
     @Override
     public Result<String> addUser(User user) {
         String password = user.getPassword();
@@ -98,5 +102,21 @@ public class UserServiceImpl implements UserService {
         } else {
             return Result.ok();
         }
+    }
+
+    @Override
+    public Result<String> changePassword(User user, String newPassword) {
+        int i = userMapper.changePassword(user, newPassword);
+        if (i == 1) {
+            return Result.ok();
+        }
+        if (i > 1) {
+            logger.warn("changePassword修改条数大于1!");
+            TransactionUtil.rollback();
+            LogObject.OrangeLog log = LogObject.get();
+            log.setLogLevel(1);
+            log.getErrMsg().add("changePassword修改条数大于1!");
+        }
+        return Result.err("密码修改失败!");
     }
 }

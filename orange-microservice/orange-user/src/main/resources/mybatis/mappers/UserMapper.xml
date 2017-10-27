@@ -52,4 +52,14 @@
             <if test="email != null">OR email = #{email}</if>
         </where>
     </select>
+
+    <update id="changePassword">
+        UPDATE user
+        SET `password` = #{newPassword}
+        <where>
+            `password` = #{user.password}
+            AND
+            (user_id = #{user.userId} OR phone = #{user.phone} OR email = #{user.email})
+        </where>
+    </update>
 </mapper>

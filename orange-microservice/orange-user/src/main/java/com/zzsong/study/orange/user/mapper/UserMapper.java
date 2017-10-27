@@ -36,4 +36,13 @@ public interface UserMapper {
      * @return 符合条件的数量
      */
     int checkUser(User user);
+
+    /**
+     * 修改密码
+     *
+     * @param user        (password+(userid | phone | email))
+     * @param newPassword 新密码
+     * @return 修改的数量
+     */
+    int changePassword(@Param("user") User user, @Param("newPassword") String newPassword);
 }
