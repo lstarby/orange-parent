@@ -1,5 +1,6 @@
 package com.zzsong.study.orange.user.mapper;
 
+import com.zzsong.study.orange.common.pojo.table.Province;
 import com.zzsong.study.orange.common.pojo.table.User;
 import org.apache.ibatis.annotations.Param;
 

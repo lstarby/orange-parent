@@ -1,9 +1,10 @@
-package com.zzsong.study.orange.user.util;
+package com.zzsong.study.orange.sso.util;
 
-import org.apache.ibatis.javassist.*;
-import org.apache.ibatis.javassist.bytecode.CodeAttribute;
-import org.apache.ibatis.javassist.bytecode.LocalVariableAttribute;
-import org.apache.ibatis.javassist.bytecode.MethodInfo;
+
+import javassist.*;
+import javassist.bytecode.CodeAttribute;
+import javassist.bytecode.LocalVariableAttribute;
+import javassist.bytecode.MethodInfo;
 
 import java.lang.reflect.Modifier;
 import java.util.HashMap;

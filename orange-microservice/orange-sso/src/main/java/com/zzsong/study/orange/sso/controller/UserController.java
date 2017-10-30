@@ -22,7 +22,6 @@ import java.util.Objects;
  * Created by zzsong on 2017/10/13.
  */
 @RestController
-//@RefreshScope
 public class UserController {
 
     private static Logger logger = LoggerFactory.getLogger(UserController.class);

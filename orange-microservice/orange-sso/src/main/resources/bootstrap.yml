@@ -31,6 +31,9 @@ spring:
     port: 5672
     username: guest
     password: guest
+  data:
+    mongodb:
+      uri: mongodb://zzsong:zzsong@127.0.0.1:27017/orange
 
 management:
   security:

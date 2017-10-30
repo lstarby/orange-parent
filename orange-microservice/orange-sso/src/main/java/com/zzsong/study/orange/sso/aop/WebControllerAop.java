@@ -1,8 +1,7 @@
-package com.zzsong.study.orange.user.aop;
+package com.zzsong.study.orange.sso.aop;
 
-import com.zzsong.study.orange.user.pojo.LogObject;
-import com.zzsong.study.orange.user.util.AopUtils;
-import org.apache.ibatis.javassist.*;
+import com.zzsong.study.orange.sso.pojo.LogObject;
+import com.zzsong.study.orange.sso.util.AopUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javassist.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -28,7 +28,7 @@ public class WebControllerAop {
 
     private static Logger logger = LoggerFactory.getLogger(WebControllerAop.class);
 
-    @Pointcut("execution(* com.zzsong.study.orange.user.controller..*.*(..))")
+    @Pointcut("execution(* com.zzsong.study.orange.sso.controller..*.*(..))")
     public void executeService() {
     }
 

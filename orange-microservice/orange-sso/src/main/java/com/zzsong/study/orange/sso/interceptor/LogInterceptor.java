@@ -1,8 +1,8 @@
-package com.zzsong.study.orange.user.interceptor;
+package com.zzsong.study.orange.sso.interceptor;
 
-import com.zzsong.study.orange.user.pojo.LogObject;
-import com.zzsong.study.orange.user.mongo.LogRepository;
-import com.zzsong.study.orange.user.util.IpUtils;
+import com.zzsong.study.orange.sso.mongo.LogRepository;
+import com.zzsong.study.orange.sso.pojo.LogObject;
+import com.zzsong.study.orange.sso.util.IpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

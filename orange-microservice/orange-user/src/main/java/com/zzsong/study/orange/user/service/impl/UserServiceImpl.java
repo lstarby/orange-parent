@@ -10,7 +10,6 @@ import com.zzsong.study.orange.user.util.TransactionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -27,7 +26,6 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
-    private MongoTemplate mongoTemplate;
     @Override
     public Result<String> addUser(User user) {
         String password = user.getPassword();

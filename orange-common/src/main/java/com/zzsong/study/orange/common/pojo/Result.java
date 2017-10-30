@@ -70,14 +70,14 @@ public class Result<T> implements Serializable {
 
 
     /**
-     * 204 msg null
+     * 400 msg null
      */
     public static <T> Result<T> err(String msg) {
         return new Result<>(RspCode.ERR_400, msg, null);
     }
 
     /**
-     * 204 msg data
+     * 400 msg data
      */
     public static <T> Result<T> err(String msg, T data) {
         return new Result<>(RspCode.ERR_400, msg, data);

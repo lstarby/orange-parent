@@ -1,4 +1,4 @@
-package com.zzsong.study.orange.user.pojo;
+package com.zzsong.study.orange.sso.pojo;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -26,7 +26,7 @@ public class LogObject {
         local.remove();
     }
 
-    @Document(collection = "log-orange-user")
+    @Document(collection = "log-orange-sso")
     public static class OrangeLog implements Serializable {
         /**
          * 日志等级

@@ -2,6 +2,7 @@ package com.zzsong.study.orange.user.controller;
 
 import com.zzsong.study.orange.common.constants.RspCode;
 import com.zzsong.study.orange.common.pojo.Result;
+import com.zzsong.study.orange.common.pojo.table.Province;
 import com.zzsong.study.orange.common.pojo.table.User;
 import com.zzsong.study.orange.user.mongo.LogRepository;
 import com.zzsong.study.orange.user.service.UserService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.SocketException;
+import java.util.List;
 
 
 /**

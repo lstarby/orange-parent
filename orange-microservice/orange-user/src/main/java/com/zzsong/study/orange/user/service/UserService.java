@@ -2,7 +2,10 @@ package com.zzsong.study.orange.user.service;
 
 
 import com.zzsong.study.orange.common.pojo.Result;
+import com.zzsong.study.orange.common.pojo.table.Province;
 import com.zzsong.study.orange.common.pojo.table.User;
+
+import java.util.List;
 
 /**
  * Created by zzsong on 2017/10/13.
