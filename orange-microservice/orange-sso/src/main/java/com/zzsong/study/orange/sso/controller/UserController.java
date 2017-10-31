@@ -46,7 +46,8 @@ public class UserController {
      * @return Result<String>
      */
     @PostMapping("/register")
-    public Result<String> register(User user, String code) {
+    public Result<String> register(User user, String code, HttpSession session) {
+        String sessionId = session.getId();
         String phone = user.getPhone();
         String email = user.getEmail();
         String password = user.getPassword();
@@ -65,7 +66,7 @@ public class UserController {
                 logger.debug("验证码错误!");
                 return Result.err("验证码错误!");
             }
-            Result<String> checkPhone = userFeignClient.checkPhone(phone);
+            Result<String> checkPhone = userFeignClient.checkPhone(phone, sessionId);
             if (!RspCode.SUCC_200.equals(checkPhone.getStatus())) {
                 return Result.err("该手机号已被使用");
             }
@@ -74,7 +75,7 @@ public class UserController {
             logger.debug("密码不可为空");
             return Result.err("密码不可为空");
         }
-        Result<String> result = userFeignClient.addUser(user);
+        Result<String> result = userFeignClient.addUser(user, sessionId);
         Integer status = result.getStatus();
         if (RspCode.SUCC_200.equals(status)) {
             return Result.ok("注册成功");
@@ -98,11 +99,12 @@ public class UserController {
             logger.debug("用户名或密码为空");
             return Result.err("用户名或密码为空");
         }
+        String sessionId = session.getId();
         User u = new User();
         u.setPassword(password);
         u.setPhone(account);
         u.setEmail(account);
-        Result<User> result = userFeignClient.getUser(u);
+        Result<User> result = userFeignClient.getUser(u, sessionId);
         logger.debug("result = {}", result.toString());
         if (!Objects.equals(result.getStatus(), RspCode.SUCC_200)) {
             logger.debug("登录验证失败 , msg = {}", result.getMsg());
@@ -110,7 +112,6 @@ public class UserController {
         }
         User user = result.getData();
         session.setAttribute(SessionConstants.SESSION_USER_ATTR, user);
-        String token = session.getId();
-        return Result.ok("ok", token);
+        return Result.ok("ok", sessionId);
     }
 }

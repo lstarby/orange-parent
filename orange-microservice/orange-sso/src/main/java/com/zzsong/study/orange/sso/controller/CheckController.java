@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * Created by zzsong on 2017/10/23.
  */
@@ -29,8 +31,9 @@ public class CheckController {
      * @return 200:可用,邮箱不存在 400:不可用,邮箱已存在
      */
     @PostMapping("/checkEmail")
-    public Result<String> checkEmail(String email) {
-        Result<String> result = userFeignClient.checkEmail(email);
+    public Result<String> checkEmail(String email, HttpSession session) {
+        String sessionId = session.getId();
+        Result<String> result = userFeignClient.checkEmail(email, sessionId);
         logger.debug("checkEmail: email = {}, result = {}, msg = {}", email, result.getStatus(), result.getMsg());
         return result;
     }
@@ -42,8 +45,9 @@ public class CheckController {
      * @return 200:可用,手机不存在 400:不可用,手机已存在
      */
     @PostMapping("/checkPhone")
-    public Result<String> checkPhone(String phone) {
-        Result<String> result = userFeignClient.checkPhone(phone);
+    public Result<String> checkPhone(String phone, HttpSession session) {
+        String sessionId = session.getId();
+        Result<String> result = userFeignClient.checkPhone(phone, sessionId);
         logger.debug("checkPhone: phone = {}, result = {}, msg = {}", phone, result.getStatus(), result.getMsg());
         return result;
     }

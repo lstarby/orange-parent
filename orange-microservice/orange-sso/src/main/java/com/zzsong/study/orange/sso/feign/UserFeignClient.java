@@ -1,5 +1,6 @@
 package com.zzsong.study.orange.sso.feign;
 
+import com.zzsong.study.orange.common.constants.SessionConstants;
 import com.zzsong.study.orange.common.pojo.Result;
 import com.zzsong.study.orange.common.pojo.table.User;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -17,7 +18,8 @@ public interface UserFeignClient {
      * @return Result<String>
      */
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    Result<String> addUser(@RequestBody User user);
+    Result<String> addUser(@RequestBody User user,
+                           @RequestHeader(SessionConstants.SESSION_ID_HEADER) String sessionId);
 
     /**
      * 查询用户
@@ -26,7 +28,8 @@ public interface UserFeignClient {
      * @return Result<User>
      */
     @RequestMapping(value = "/getUser", method = RequestMethod.POST)
-    Result<User> getUser(@RequestBody User user);
+    Result<User> getUser(@RequestBody User user,
+                         @RequestHeader(SessionConstants.SESSION_ID_HEADER) String sessionId);
 
     /**
      * 判断邮箱是否可用
@@ -35,7 +38,8 @@ public interface UserFeignClient {
      * @return 200:可用,邮箱不存在 400:不可用,邮箱已存在
      */
     @RequestMapping(value = "/checkEmail", method = RequestMethod.POST)
-    Result<String> checkEmail(@RequestParam("email") String email);
+    Result<String> checkEmail(@RequestParam("email") String email,
+                              @RequestHeader(SessionConstants.SESSION_ID_HEADER) String sessionId);
 
     /**
      * 判断手机号码是否可用
@@ -44,5 +48,6 @@ public interface UserFeignClient {
      * @return 200:可用,手机不存在 400:不可用,手机已存在
      */
     @RequestMapping(value = "/checkPhone", method = RequestMethod.POST)
-    Result<String> checkPhone(@RequestParam("phone") String phone);
+    Result<String> checkPhone(@RequestParam("phone") String phone,
+                              @RequestHeader(SessionConstants.SESSION_ID_HEADER) String sessionId);
 }

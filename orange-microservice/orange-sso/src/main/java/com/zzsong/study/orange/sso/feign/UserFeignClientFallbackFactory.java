@@ -20,25 +20,25 @@ public class UserFeignClientFallbackFactory implements FallbackFactory<UserFeign
         return new UserFeignClient() {
 
             @Override
-            public Result<String> addUser(User user) {
+            public Result<String> addUser(User user, String sessionId) {
                 logger.info("fallback, User服务访问失败: {}", throwable.getMessage());
                 return Result.err("User服务访问失败!");
             }
 
             @Override
-            public Result<User> getUser(User user) {
+            public Result<User> getUser(User user, String sessionId) {
                 logger.info("fallback, User服务访问失败: {}", throwable.getMessage());
                 return Result.err("User服务访问失败!");
             }
 
             @Override
-            public Result<String> checkEmail(String email) {
+            public Result<String> checkEmail(String email, String sessionId) {
                 logger.info("fallback, User服务访问失败: {}", throwable.getMessage());
                 return Result.err("User服务访问失败!");
             }
 
             @Override
-            public Result<String> checkPhone(String phone) {
+            public Result<String> checkPhone(String phone, String sessionId) {
                 logger.info("fallback, User服务访问失败: {}", throwable.getMessage());
                 return Result.err("User服务访问失败!");
             }

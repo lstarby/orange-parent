@@ -1,5 +1,6 @@
 package com.zzsong.study.orange.user.interceptor;
 
+import com.zzsong.study.orange.common.constants.SessionConstants;
 import com.zzsong.study.orange.user.pojo.LogObject;
 import com.zzsong.study.orange.user.mongo.LogRepository;
 import com.zzsong.study.orange.user.util.IpUtils;
@@ -28,6 +29,7 @@ public class LogInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest,
                              HttpServletResponse httpServletResponse, Object o) throws Exception {
         String requestURI = httpServletRequest.getRequestURI();
+        String sessionId = httpServletRequest.getHeader(SessionConstants.SESSION_ID_HEADER);
         String ipAddr = IpUtils.getIpAddr(httpServletRequest);
         long time = new Date().getTime();
         String localIpAddr = null;
@@ -41,6 +43,7 @@ public class LogInterceptor implements HandlerInterceptor {
             logger.error("LogObject.get() return null!");
             return true;
         }
+        log.setSessionId(sessionId);
         log.setReqUri(requestURI);
         log.setReqIp(ipAddr);
         log.setLocalIp(localIpAddr);

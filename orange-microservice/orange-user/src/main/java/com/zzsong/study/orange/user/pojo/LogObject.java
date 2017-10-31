@@ -1,6 +1,8 @@
 package com.zzsong.study.orange.user.pojo;
 
-import com.alibaba.fastjson.JSON;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -27,6 +29,9 @@ public class LogObject {
     }
 
     @Document(collection = "log-orange-user")
+    @Getter
+    @Setter
+    @ToString
     public static class OrangeLog implements Serializable {
         /**
          * 日志等级
@@ -89,114 +94,5 @@ public class LogObject {
         // TODO: 2017/10/27 日志存活时间改为可配置
         @Indexed(expireAfterSeconds = 2592000, background = true)
         private Date createdAt;
-
-        public int getLogLevel() {
-            return logLevel;
-        }
-
-        public void setLogLevel(int logLevel) {
-            this.logLevel = logLevel;
-        }
-
-        public int getRspStatus() {
-            return rspStatus;
-        }
-
-        public void setRspStatus(int rspStatus) {
-            this.rspStatus = rspStatus;
-        }
-
-        public String getSessionId() {
-            return sessionId;
-        }
-
-        public void setSessionId(String sessionId) {
-            this.sessionId = sessionId;
-        }
-
-        public String getDownPlat() {
-            return downPlat;
-        }
-
-        public void setDownPlat(String downPlat) {
-            this.downPlat = downPlat;
-        }
-
-        public String getReqUri() {
-            return reqUri;
-        }
-
-        public void setReqUri(String method) {
-            this.reqUri = method;
-        }
-
-        public String getReqIp() {
-            return reqIp;
-        }
-
-        public void setReqIp(String reqIp) {
-            this.reqIp = reqIp;
-        }
-
-        public String getLocalIp() {
-            return localIp;
-        }
-
-        public void setLocalIp(String localIp) {
-            this.localIp = localIp;
-        }
-
-        public Map<String, Object> getRequestParams() {
-            return requestParams;
-        }
-
-        public List<String> getErrMsg() {
-            return errMsg;
-        }
-
-        public Object getResponse() {
-            return response;
-        }
-
-        public void setResponse(Object response) {
-            this.response = response;
-        }
-
-        public long getReqTime() {
-            return reqTime;
-        }
-
-        public void setReqTime(long reqTime) {
-            this.reqTime = reqTime;
-        }
-
-        public long getRspTime() {
-            return rspTime;
-        }
-
-        public void setRspTime(long rspTime) {
-            this.rspTime = rspTime;
-        }
-
-        public long getManageTime() {
-            return manageTime;
-        }
-
-        public void setManageTime(long manageTime) {
-            this.manageTime = manageTime;
-        }
-
-        public Date getCreatedAt() {
-            return createdAt;
-        }
-
-        public void setCreatedAt(Date createdAt) {
-            this.createdAt = createdAt;
-        }
-
-        @Override
-        public String toString() {
-            return JSON.toJSONString(this);
-        }
     }
 }

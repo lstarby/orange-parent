@@ -26,10 +26,17 @@
         <httpclient.version>4.5.3</httpclient.version>
         <httpcore.version>4.4.8</httpcore.version>
         <feign-httpclient.version>8.18.0</feign-httpclient.version>
+        <lombok.version>1.16.18</lombok.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <!--<scope>provided</scope>-->
+            </dependency>
             <!-- FastJson -->
             <dependency>
                 <groupId>com.alibaba</groupId>

@@ -3,49 +3,22 @@ package com.zzsong.study.orange.common.pojo;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.zzsong.study.orange.common.constants.RspCode;
+import lombok.*;
 
 import java.io.Serializable;
 
 /**
  * Created by zzsong on 2017/10/13.
  */
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Result<T> implements Serializable {
     private Integer status;
     private String msg;
     private T data;
-
-    public Result() {
-    }
-
-    public Result(Integer status, String msg, T data) {
-        this.status = status;
-        this.msg = msg;
-        this.data = data;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
 
     /**
      * 200 ok null
@@ -85,11 +58,6 @@ public class Result<T> implements Serializable {
 
     public static <T> Result<T> build(Integer status, String msg, T data) {
         return new Result<>(status, msg, data);
-    }
-
-    @Override
-    public String toString() {
-        return JSON.toJSONString(this);
     }
 
     public static <T> Result<T> parse(String text, Class<T> clazz) {

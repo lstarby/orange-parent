@@ -1,7 +1,9 @@
 package com.zzsong.study.orange.sso.interceptor;
 
+import com.zzsong.study.orange.common.constants.SessionConstants;
 import com.zzsong.study.orange.sso.mongo.LogRepository;
 import com.zzsong.study.orange.sso.pojo.LogObject;
+import com.zzsong.study.orange.sso.util.CookieUtils;
 import com.zzsong.study.orange.sso.util.IpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,8 @@ public class LogInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest,
                              HttpServletResponse httpServletResponse, Object o) throws Exception {
+        String sessionKey = CookieUtils.getCookieValue(httpServletRequest,
+                SessionConstants.COOKIE_SESSION_KEY);
         String requestURI = httpServletRequest.getRequestURI();
         String ipAddr = IpUtils.getIpAddr(httpServletRequest);
         long time = new Date().getTime();
@@ -41,6 +45,7 @@ public class LogInterceptor implements HandlerInterceptor {
             logger.error("LogObject.get() return null!");
             return true;
         }
+        log.setSessionId(sessionKey);
         log.setReqUri(requestURI);
         log.setReqIp(ipAddr);
         log.setLocalIp(localIpAddr);

@@ -7,4 +7,5 @@ public interface SessionConstants {
     String COOKIE_SESSION_KEY = "ORANGE-SESSION-TOKEN";
     String REDIS_NAMESPACE = "orange";
     String SESSION_USER_ATTR = "user";
+    String SESSION_ID_HEADER = "sessionId";
 }
