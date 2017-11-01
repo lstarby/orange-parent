@@ -56,18 +56,23 @@
         <div class="user-infoPic">
 
           <div class="filePic">
-            <input type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*"/>
-            <img class="am-circle am-img-thumbnail" src="/images/getAvatar.do.jpg" alt=""/>
+            <input id="uploadHeadPortrait" type="file" class="inputPic"
+                   allowexts="gif,jpeg,jpg,png,bmp"
+                   accept="image/*" multiple="multiple"/>
+            <img id="headPortrait" class="am-circle am-img-thumbnail" src="/images/getAvatar.do.jpg"
+                 alt="" th:src="${user.headPortrait}"/>
           </div>
 
           <p class="am-form-help">头像</p>
 
           <div class="info-m">
-            <div><b>用户名：<i>小叮当</i></b></div>
+            <div><b>用户名：
+              <i th:text="${user.nickName}">小叮当</i></b></div>
             <div class="u-level">
 									<span class="rank r2">
-							             <s class="vip1"></s><a class="classes" href="#">铜牌会员</a>
-						            </span>
+                    <s class="vip1"></s>
+                    <a class="classes" href="#">铜牌会员</a>
+                  </span>
             </div>
             <div class="u-safety">
               <a href="safety.html">
@@ -85,15 +90,15 @@
             <div class="am-form-group">
               <label for="user-name2" class="am-form-label">昵称</label>
               <div class="am-form-content">
-                <input type="text" id="user-name" placeholder="nickname"/>
-
+                <input type="text" id="user-name" placeholder="nickname"
+                       th:value="${user.nickName}"/>
               </div>
             </div>
 
             <div class="am-form-group">
               <label for="user-name" class="am-form-label">姓名</label>
               <div class="am-form-content">
-                <input type="text" id="user-name2" placeholder="name"/>
+                <input type="text" id="user-name2" placeholder="name" th:value="${user.name}"/>
 
               </div>
             </div>
@@ -102,83 +107,68 @@
               <label class="am-form-label">性别</label>
               <div class="am-form-content sex">
                 <label class="am-radio-inline">
-                  <input type="radio" name="radio10" value="male" data-am-ucheck=""/> 男
+                  <input type="radio" name="radio10" value="1" data-am-ucheck=""
+                         th:checked="${user.gender}==1"/> 男
                 </label>
                 <label class="am-radio-inline">
-                  <input type="radio" name="radio10" value="female" data-am-ucheck=""/> 女
+                  <input type="radio" name="radio10" value="0" data-am-ucheck=""
+                         th:checked="${user.gender}==0"/> 女
                 </label>
                 <label class="am-radio-inline">
-                  <input type="radio" name="radio10" value="secret" data-am-ucheck=""/> 保密
+                  <input type="radio" name="radio10" value="3" data-am-ucheck=""
+                         th:checked="${user.gender}==3"/> 保密
+                </label>
+                <label class="am-radio-inline">
+                  <input type="radio" name="radio10" value="2" data-am-ucheck=""
+                         th:checked="${user.gender}==2"/> 其他
                 </label>
               </div>
             </div>
 
             <div class="am-form-group">
               <label for="user-birth" class="am-form-label">生日</label>
-              <div class="am-form-content birth">
+              <div class="am-form-content birth" id="user-birth">
                 <div class="birth-select">
-                  <select id="user-birth" data-am-selected="">
-                    <option value="a">2015</option>
-                    <option value="b">1987</option>
+                  <select data-am-selected="{maxHeight: 150, dropUp: 1}" id="yyyy">
+                    <!--<option value="a">2015</option>-->
+                    <!--<option value="b">1987</option>-->
                   </select>
                   <em>年</em>
                 </div>
                 <div class="birth-select2">
-                  <select data-am-selected="">
-                    <option value="a">12</option>
-                    <option value="b">8</option>
+                  <select data-am-selected="{maxHeight: 150, dropUp: 1}" id="mm">
+                    <!--<option value="a">12</option>-->
+                    <!--<option value="b">8</option>-->
                   </select>
-                  <em>月</em></div>
+                  <em>月</em>
+                </div>
                 <div class="birth-select2">
-                  <select data-am-selected="">
-                    <option value="a">21</option>
-                    <option value="b">23</option>
+                  <select data-am-selected="{maxHeight: 150, dropUp: 1}" id="dd">
+                    <!--<option value="a">21</option>-->
+                    <!--<option value="b">23</option>-->
                   </select>
-                  <em>日</em></div>
+                  <em>日</em>
+                </div>
               </div>
-
             </div>
             <div class="am-form-group">
               <label for="user-phone" class="am-form-label">电话</label>
               <div class="am-form-content">
-                <input id="user-phone" placeholder="telephonenumber" type="tel"/>
+                <input id="user-phone" placeholder="telephonenumber" type="tel"
+                       th:value="${user.phone}"/>
 
               </div>
             </div>
             <div class="am-form-group">
               <label for="user-email" class="am-form-label">电子邮件</label>
               <div class="am-form-content">
-                <input id="user-email" placeholder="Email" type="email"/>
+                <input id="user-email" placeholder="Email" type="email" th:value="${user.email}"/>
 
-              </div>
-            </div>
-            <div class="am-form-group address">
-              <label for="user-address" class="am-form-label">收货地址</label>
-              <div class="am-form-content address">
-                <a href="address.html">
-                  <p id="user-address" class="new-mu_l2cw">
-                    <span class="province">湖北</span>省
-                    <span class="city">武汉</span>市
-                    <span class="dist">洪山</span>区
-                    <span class="street">雄楚大道666号(中南财经政法大学)</span>
-                    <span class="am-icon-angle-right"></span>
-                  </p>
-                </a>
-
-              </div>
-            </div>
-            <div class="am-form-group safety">
-              <label for="user-safety" class="am-form-label">账号安全</label>
-              <div id="user-safety" class="am-form-content safety">
-                <a href="safety.html">
-                  <span class="am-icon-angle-right"></span>
-                </a>
               </div>
             </div>
             <div class="info-btn">
               <div class="am-btn am-btn-danger">保存修改</div>
             </div>
-
           </form>
         </div>
 
@@ -255,7 +245,114 @@
 
   </aside>
 </div>
+<script th:inline="javascript">
 
+    $(function () {
+        /**
+         * 判断是否闰平年
+         * @param year 年
+         * @return {boolean}
+         */
+        function isPinYear(year) {
+            return (0 === year % 4 && (year % 100 !== 0 || year % 400 === 0));
+        }
+
+        /**
+         * 根据年月动态修改日下拉框中的候选值
+         * @param year 年
+         * @param month 月
+         * @param def 默认选中的日期
+         */
+        function modyDay(year, month, def) {
+            var MonHead = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            var n = MonHead[month - 1];
+            var b = isPinYear(year);
+            if (month === '2' && b) {
+                n++;
+            }
+            dd.empty();
+            for (var k = 1; k < n + 1; k++) {
+                if (def !== null && (def - 0) === k) {
+                    dd.append("<option value='" + k + "' selected = \"selected\">" + k + "</option>");
+                } else {
+                    dd.append("<option value='" + k + "'>" + k + "</option>");
+                }
+            }
+        }
+
+        // thymeleaf获取生日年份
+        var bYear = /*[[${#dates.format(user.birthday,'yyyy')}]]*/ null;
+        // thymeleaf获取生日月份
+        var bMonth = /*[[${#dates.format(user.birthday,'MM')}]]*/ null;
+        // thymeleaf获取生日日期
+        var bDay = /*[[${#dates.format(user.birthday,'dd')}]]*/ null;
+
+        /* 初始化日期选择器开始 */
+        var y = new Date().getFullYear();
+        var yyyy = $('#yyyy');
+        var mm = $('#mm');
+        var dd = $('#dd');
+        for (var i = (y - 1); i > (y - 100); i--) {
+            if (bYear !== null && (bYear - 0) === i) {
+                yyyy.append("<option value='" + i + "' selected = \"selected\">" + i + "</option>");
+            } else {
+                yyyy.append("<option value='" + i + "'>" + i + "</option>");
+            }
+        }
+        for (var j = 1; j < 13; j++) {
+            if (bMonth !== null && (bMonth - 0) === j) {
+                mm.append("<option value='" + j + "' selected = \"selected\">" + j + "</option>");
+            } else {
+                mm.append("<option value='" + j + "'>" + j + "</option>");
+            }
+        }
+        var yyyyVal = yyyy.val();
+        var mmVal = mm.val();
+        modyDay(yyyyVal, mmVal, bDay);
+        /* 初始化日期选择器结束 */
+
+        /**
+         * 年份修改时重置日下拉框候选值
+         */
+        yyyy.change(function () {
+            var yyyyVal = yyyy.val();
+            var mmVal = mm.val();
+            var ddVal = dd.val();
+            modyDay(yyyyVal, mmVal, ddVal);
+        });
+
+        /**
+         * 月修改时重置日下拉框候选值
+         */
+        mm.change(function () {
+            var yyyyVal = yyyy.val();
+            var mmVal = mm.val();
+            var ddVal = dd.val();
+            modyDay(yyyyVal, mmVal, ddVal);
+        });
+
+        $('#uploadHeadPortrait').change(function () {
+            var formData = new FormData();
+            formData.append('file', $('#uploadHeadPortrait')[0].files[0]);
+            $.ajax({
+                url: '/uploadHeadPortrait',
+                type: 'POST',
+                cache: false,
+                data: formData,
+                processData: false,
+                contentType: false
+            }).done(function (res) {
+                if ((res.status) !== 200) {
+
+                } else {
+                    $('#headPortrait').attr("src", res.data);
+                }
+            }).fail(function (res) {
+                alert("fail : " + res.msg);
+            });
+        });
+    });
+</script>
 </body>
 
 </html>

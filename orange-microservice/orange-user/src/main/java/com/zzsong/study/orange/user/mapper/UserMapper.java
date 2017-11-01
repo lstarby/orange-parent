@@ -46,4 +46,12 @@ public interface UserMapper {
      * @return 修改的数量
      */
     int changePassword(@Param("user") User user, @Param("newPassword") String newPassword);
+
+    /**
+     * 通过userId更新用户数据
+     *
+     * @param user User Object
+     * @return 修改的条数
+     */
+    int updateUserByUserId(User user);
 }

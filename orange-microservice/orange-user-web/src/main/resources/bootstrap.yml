@@ -12,7 +12,7 @@ spring:
   application:
     name: orange-user-web
   thymeleaf:
-    mode: HTML5
+    mode: LEGACYHTML5
     encoding: UTF-8
     content-type: text/html
     cache: false #开发时关闭缓存

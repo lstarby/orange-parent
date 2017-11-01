@@ -30,53 +30,27 @@
     <div class="login-box">
 
       <div class="am-tabs" id="doc-my-tabs">
-        <ul class="am-tabs-nav am-nav am-nav-tabs am-nav-justify">
-          <li class="am-active"><a href="">邮箱注册</a></li>
-          <li><a href="">手机号注册</a></li>
-        </ul>
 
         <div class="am-tabs-bd">
           <div class="am-tab-panel am-active">
             <form method="post" enctype="text/plain">
-
-              <div class="user-email">
-                <label for="email"><i class="am-icon-envelope-o"></i></label>
-                <input type="email" name="" id="email" placeholder="请输入邮箱账号"/>
+              <div class="user-name">
+                <label for="nickName"><i class="am-icon-user am-icon-sm"></i></label>
+                <input type="text" name="" id="nickName" placeholder="请输入昵称"/>
               </div>
-              <div class="user-pass">
-                <label for="password"><i class="am-icon-lock"></i></label>
-                <input type="password" name="" id="password1" placeholder="设置密码"/>
-              </div>
-              <div class="user-pass">
-                <label for="passwordRepeat"><i class="am-icon-lock"></i></label>
-                <input type="password" name="" id="passwordRepeat1" placeholder="确认密码"/>
-              </div>
-
-            </form>
-
-            <div class="login-links">
-              <label for="reader-me">
-                <input type="checkbox"/> 点击表示您同意商城《服务协议》
-              </label>
-            </div>
-            <div class="am-cf">
-              <input type="submit" name="" id="register1" value="注册"
-                     class="am-btn am-btn-primary am-btn-sm am-fl"/>
-            </div>
-
-          </div>
-
-          <div class="am-tab-panel">
-            <form method="post">
               <div class="user-phone">
                 <label for="phone"><i class="am-icon-mobile-phone am-icon-md"></i></label>
                 <input type="tel" name="" id="phone" placeholder="请输入手机号"/>
               </div>
               <div class="verification">
                 <label for="code"><i class="am-icon-code-fork"></i></label>
-                <input type="tel" name="" id="code" placeholder="请输入验证码"/>
+                <input type="tel" name="" id="code" placeholder="请输入手机验证码"/>
                 <a class="btn" id="sendMobileCode" style="cursor: pointer">
                   <span id="dyMobileButton">获取</span></a>
+              </div>
+              <div class="user-email">
+                <label for="email"><i class="am-icon-envelope-o"></i></label>
+                <input type="email" name="" id="email" placeholder="请输入邮箱账号"/>
               </div>
               <div class="user-pass">
                 <label for="password"><i class="am-icon-lock"></i></label>
@@ -86,18 +60,18 @@
                 <label for="passwordRepeat"><i class="am-icon-lock"></i></label>
                 <input type="password" name="" id="passwordRepeat" placeholder="确认密码"/>
               </div>
+
             </form>
+
             <div class="login-links">
               <label for="reader-me">
-                <input id="reader-me" type="checkbox"/> 点击表示您同意商城《服务协议》
+                <input type="checkbox" id="reader-me"/> 点击表示您同意商城《服务协议》
               </label>
             </div>
             <div class="am-cf">
               <input type="submit" name="" id="register" value="注册"
                      class="am-btn am-btn-primary am-btn-sm am-fl"/>
             </div>
-
-            <hr/>
           </div>
 
           <script>
@@ -146,54 +120,28 @@
                           }, "json");
                   });
 
-                  // 邮箱注册
-                  $("#register1").click(
-                      function () {
-                          var email = $("#email").val();
-                          var password = $("#password1").val();
-                          var passwordRepeat = $("#passwordRepeat1").val();
-                          var flag = true;
-                          var errMsg = '';
-                          if (email === null || email === '') {
-                              flag = false;
-                              errMsg += '邮箱不可为空!';
-                          }
-                          if (password === null || password === '') {
-                              flag = false;
-                              errMsg += '密码不可为空!';
-                          }
-                          if (password !== passwordRepeat) {
-                              flag = false;
-                              errMsg += '两次密码输入不一致!';
-                          }
-                          if (flag) {
-                              $.post("/register", {
-                                      "email": email,
-                                      "password": password
-                                  },
-                                  function (data) {
-                                      alert(data.status);
-                                      console.log(data.msg);
-                                      console.log(data.data);
-                                  }, "json");
-                          } else {
-                              alert(errMsg);
-                          }
-                      }
-                  );
-
-                  //手机注册
+                  //账号注册
                   $("#register").click(
                       function () {
+                          var nickName = $("#nickName").val();
                           var phone = $("#phone").val();
                           var code = $("#code").val();
+                          var email = $("#email").val();
                           var password = $("#password").val();
                           var passwordRepeat = $("#passwordRepeat").val();
                           var flag = true;
                           var errMsg = '';
+                          if (nickName === null || nickName === '') {
+                              flag = false;
+                              errMsg += '昵称不可为空!';
+                          }
                           if (phone === null || phone === '') {
                               flag = false;
                               errMsg += '手机号码不可为空!';
+                          }
+                          if (email === null || email === '') {
+                              flag = false;
+                              errMsg += '邮箱不可为空!';
                           }
                           if (password === null || password === '') {
                               flag = false;
@@ -209,8 +157,10 @@
                           }
                           if (flag) {
                               $.post("/register", {
+                                      "nickName": nickName,
                                       "phone": phone,
                                       "code": code,
+                                      "email": email,
                                       "password": password
                                   },
                                   function (data) {

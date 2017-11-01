@@ -105,4 +105,12 @@ public class UserController {
         log.debug("checkPhone : result = {}", result.toString());
         return result;
     }
+
+    @PostMapping("/updateUserByUserId")
+    public Result<String> updateUserByUserId(@RequestBody User user) {
+        log.debug("updateUserByUserId : user = {}", user.toString());
+        Result<String> result = userService.updateUserByUserId(user);
+        log.debug("updateUserByUserId : result = {}", result.toString());
+        return result;
+    }
 }

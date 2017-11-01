@@ -73,5 +73,8 @@ public class User implements Serializable {
      * 是否实名认证, 1:是 0:否
      */
     private Integer isRealAuthentication;
-
+    /**
+     * 用户头像地址
+     */
+    private String headPortrait;
 }

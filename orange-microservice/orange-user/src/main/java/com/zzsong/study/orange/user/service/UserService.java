@@ -51,4 +51,12 @@ public interface UserService {
      * @return Result<String>
      */
     Result<String> changePassword(User user, String newPassword);
+
+    /**
+     * 通过userId更新用户数据
+     *
+     * @param user User Object
+     * @return 修改的条数
+     */
+    Result<String> updateUserByUserId(User user);
 }

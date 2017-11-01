@@ -27,10 +27,24 @@
         <httpcore.version>4.4.8</httpcore.version>
         <feign-httpclient.version>8.18.0</feign-httpclient.version>
         <lombok.version>1.16.18</lombok.version>
+        <nekohtml.version>1.9.22</nekohtml.version>
+        <qiniu-java-sdk.version>7.2.8</qiniu-java-sdk.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- 七牛SDK -->
+            <dependency>
+                <groupId>com.qiniu</groupId>
+                <artifactId>qiniu-java-sdk</artifactId>
+                <version>${qiniu-java-sdk.version}</version>
+            </dependency>
+            <!-- 用于解决thymeleaf解析HTML出错 -->
+            <dependency>
+                <groupId>net.sourceforge.nekohtml</groupId>
+                <artifactId>nekohtml</artifactId>
+                <version>${nekohtml.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>

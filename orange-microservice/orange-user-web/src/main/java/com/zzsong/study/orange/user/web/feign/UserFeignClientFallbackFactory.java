@@ -1,5 +1,7 @@
 package com.zzsong.study.orange.user.web.feign;
 
+import com.zzsong.study.orange.common.pojo.Result;
+import com.zzsong.study.orange.common.pojo.table.User;
 import feign.hystrix.FallbackFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +16,12 @@ public class UserFeignClientFallbackFactory implements FallbackFactory<UserFeign
 
     @Override
     public UserFeignClient create(Throwable throwable) {
-        logger.info("fallback, User服务访问失败: {}", throwable.getMessage());
         return new UserFeignClient() {
-
+            @Override
+            public Result<String> updateUserByUserId(User user, String sessionId) {
+                logger.info("fallback, User服务访问失败: {}", throwable.getMessage());
+                return Result.err("User服务访问失败!");
+            }
         };
     }
 }

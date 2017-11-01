@@ -43,7 +43,7 @@ public class AopUtils {
         int pos = Modifier.isStatic(cm.getModifiers()) ? 0 : 1;
         for (int i = 0; i < cm.getParameterTypes().length; i++) {
             String key = attr.variableName(i + pos);
-            if ("session".equals(key)) {
+            if ("session".equals(key) || "this".equals(key) || "o".equals(key)) {
                 continue;
             }
             map.put(key, args[i]);//paramNames即参数名

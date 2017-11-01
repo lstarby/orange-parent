@@ -1,2 +1,9 @@
 uri:
   login: http://localhost:8021/login.html # 单点登录链接
+
+qiniu:
+  accessKey: bSyJol4lkJ2pgeAfQyK50_nqWFWDxErFLn3Aaq2P
+  secretKey: y2Ts2HxR63DSCMkqTFYeck4gvw3ZHthTWUeTMzOn
+  domain: http://oyp7z21e9.bkt.clouddn.com/
+  bucket: orange
+  model: imageView2/1/w/200/h/200/format/jpg/q/75|imageslim

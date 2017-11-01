@@ -16,7 +16,7 @@
             <div class="menu-hd">
               <!--/*@thymesVar id="user" type="com.zzsong.study.orange.common.pojo.table.User"*/-->
               <!--/*@thymesVar id="nickName" type="nickName"*/-->
-              <span class="h" th:text="${user.nickName}">nickname</span>
+              <span class="h" th:text="${user}==null ? '未登录' : ${user.nickName}">nickname</span>
               <!--<a href="#" target="_top">免费注册</a>-->
             </div>
           </div>
