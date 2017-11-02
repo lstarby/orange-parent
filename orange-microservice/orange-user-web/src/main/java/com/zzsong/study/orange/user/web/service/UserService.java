@@ -1,6 +1,7 @@
 package com.zzsong.study.orange.user.web.service;
 
 import com.zzsong.study.orange.common.pojo.Result;
+import com.zzsong.study.orange.common.pojo.table.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
@@ -17,4 +18,6 @@ public interface UserService {
      * @return Result<String>
      */
     Result<String> uploadHeadPortrait(MultipartFile file, HttpSession session);
+
+    Result<User> updateUserInformation(User user, HttpSession session);
 }

@@ -60,7 +60,7 @@
                    allowexts="gif,jpeg,jpg,png,bmp"
                    accept="image/*" multiple="multiple"/>
             <img id="headPortrait" class="am-circle am-img-thumbnail" src="/images/getAvatar.do.jpg"
-                 alt="" th:src="${user.headPortrait}"/>
+                 th:src="${user.headPortrait} == null ? '/images/getAvatar.do.jpg' : ${user.headPortrait}"/>
           </div>
 
           <p class="am-form-help">头像</p>
@@ -88,9 +88,9 @@
           <form class="am-form am-form-horizontal">
 
             <div class="am-form-group">
-              <label for="user-name2" class="am-form-label">昵称</label>
+              <label for="user-nickName" class="am-form-label">昵称</label>
               <div class="am-form-content">
-                <input type="text" id="user-name" placeholder="nickname"
+                <input type="text" id="user-nickName" placeholder="nickname"
                        th:value="${user.nickName}"/>
               </div>
             </div>
@@ -98,7 +98,7 @@
             <div class="am-form-group">
               <label for="user-name" class="am-form-label">姓名</label>
               <div class="am-form-content">
-                <input type="text" id="user-name2" placeholder="name" th:value="${user.name}"/>
+                <input type="text" id="user-name" placeholder="name" th:value="${user.name}"/>
 
               </div>
             </div>
@@ -130,22 +130,20 @@
               <div class="am-form-content birth" id="user-birth">
                 <div class="birth-select">
                   <select data-am-selected="{maxHeight: 150, dropUp: 1}" id="yyyy">
-                    <!--<option value="a">2015</option>-->
-                    <!--<option value="b">1987</option>-->
+                    <!--<option value="0">请选择</option>-->
+
                   </select>
                   <em>年</em>
                 </div>
                 <div class="birth-select2">
                   <select data-am-selected="{maxHeight: 150, dropUp: 1}" id="mm">
-                    <!--<option value="a">12</option>-->
-                    <!--<option value="b">8</option>-->
+                    <!--<option value="0">请选择</option>-->
                   </select>
                   <em>月</em>
                 </div>
                 <div class="birth-select2">
                   <select data-am-selected="{maxHeight: 150, dropUp: 1}" id="dd">
-                    <!--<option value="a">21</option>-->
-                    <!--<option value="b">23</option>-->
+                    <!--<option value="0">请选择</option>-->
                   </select>
                   <em>日</em>
                 </div>
@@ -167,7 +165,7 @@
               </div>
             </div>
             <div class="info-btn">
-              <div class="am-btn am-btn-danger">保存修改</div>
+              <div id="commin-btn" class="am-btn am-btn-danger">保存修改</div>
             </div>
           </form>
         </div>
@@ -271,6 +269,7 @@
                 n++;
             }
             dd.empty();
+            dd.append("<option value=\"0\">请选择</option>");
             for (var k = 1; k < n + 1; k++) {
                 if (def !== null && (def - 0) === k) {
                     dd.append("<option value='" + k + "' selected = \"selected\">" + k + "</option>");
@@ -299,6 +298,7 @@
         var yyyy = $('#yyyy');
         var mm = $('#mm');
         var dd = $('#dd');
+        yyyy.append("<option value=\"0\">请选择</option>");
         for (var i = (y - 1); i > (y - 100); i--) {
             if (bYear !== null && (bYear - 0) === i) {
                 yyyy.append("<option value='" + i + "' selected = \"selected\">" + i + "</option>");
@@ -306,6 +306,7 @@
                 yyyy.append("<option value='" + i + "'>" + i + "</option>");
             }
         }
+        mm.append("<option value=\"0\">请选择</option>");
         for (var j = 1; j < 13; j++) {
             if (bMonth !== null && (bMonth - 0) === j) {
                 mm.append("<option value='" + j + "' selected = \"selected\">" + j + "</option>");
@@ -357,6 +358,45 @@
             }).fail(function (res) {
                 alert("头像上传失败!");
             });
+        });
+
+        $('#commin-btn').click(function () {
+            var nickName = $('#user-nickName').val();
+            var name = $('#user-name').val();
+            var gender = $('input:radio[name="radio10"]:checked').val();
+            var yyyy = $('#yyyy').val();
+            var mm = $('#mm').val();
+            var dd = $('#dd').val();
+            var phone = $('#user-phone').val();
+            var email = $('#user-email').val();
+            console.log(nickName);
+            console.log(name);
+            console.log(gender === undefined);
+            console.log(yyyy);
+            console.log(mm);
+            console.log(dd);
+            console.log(phone);
+            console.log(email);
+            var formattedBirthday = undefined;
+            if (yyyy !== "0" && mm !== "0" && dd !== "0") {
+                formattedBirthday = yyyy + "-" + mm + "-" + dd;
+            }
+            $.post("/updateUserInformation", {
+                    "nickName": nickName,
+                    "name": name,
+                    "gender": gender,
+                    "formattedBirthday": formattedBirthday,
+                    "phone": phone,
+                    "email": email
+                },
+                function (data) {
+                    if (data.status === 200) {
+
+                    } else {
+                        alert(data.msg);
+                    }
+                }, "json");
+
         });
     });
 </script>

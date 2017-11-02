@@ -53,7 +53,8 @@
         <div class="user-infoPic">
 
           <div class="filePic">
-            <img class="am-circle am-img-thumbnail" src="/images/getAvatar.do.jpg" alt=""/>
+            <img class="am-circle am-img-thumbnail" src="/images/getAvatar.do.jpg"
+                 th:src="${user.headPortrait} == null ? '/images/getAvatar.do.jpg' : ${user.headPortrait}"/>
           </div>
 
           <p class="am-form-help">头像</p>

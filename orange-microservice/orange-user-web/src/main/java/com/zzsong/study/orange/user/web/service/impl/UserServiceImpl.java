@@ -4,15 +4,19 @@ import com.zzsong.study.orange.common.constants.RspCode;
 import com.zzsong.study.orange.common.constants.SessionConstants;
 import com.zzsong.study.orange.common.pojo.Result;
 import com.zzsong.study.orange.common.pojo.table.User;
+import com.zzsong.study.orange.common.util.DateUtils;
 import com.zzsong.study.orange.user.web.feign.UserFeignClient;
 import com.zzsong.study.orange.user.web.service.FileService;
 import com.zzsong.study.orange.user.web.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -72,4 +76,26 @@ public class UserServiceImpl implements UserService {
             return Result.err("上传文件不合法!");
         }
     }
+
+    @Override
+    public Result<User> updateUserInformation(User user, HttpSession session) {
+        User sessionUser = (User) session.getAttribute(SessionConstants.SESSION_USER_ATTR);
+        if (sessionUser == null) {
+            log.debug("get session user returnd null!");
+            return Result.err("请重新登录!");
+        }
+        user.setUserId(sessionUser.getUserId());
+        String formattedBirthday = user.getFormattedBirthday();
+        if (StringUtils.isNotBlank(formattedBirthday)) {
+            try {
+                Date birthday = DateUtils.parse(formattedBirthday, "yyyy-MM-dd");
+                user.setBirthday(birthday);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        Result<String> result = userFeignClient.updateUserByUserId(user, session.getId());
+        return Result.ok("", new User());
+    }
+
 }

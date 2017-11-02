@@ -46,7 +46,8 @@
             <div class="m-userinfo">
               <div class="m-baseinfo">
                 <a href="information.html">
-                  <img src="/images/getAvatar.do.jpg"/>
+                  <img src="/images/getAvatar.do.jpg"
+                       th:src="${user.headPortrait} == null ? '/images/getAvatar.do.jpg' : ${user.headPortrait}"/>
                 </a>
                 <!--/*@thymesVar id="user" type="com.zzsong.study.orange.common.pojo.table.User"*/-->
                 <!--/*@thymesVar id="nickName" type="nickName"*/-->
