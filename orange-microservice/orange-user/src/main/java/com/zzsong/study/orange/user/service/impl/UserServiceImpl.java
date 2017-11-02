@@ -1,5 +1,6 @@
 package com.zzsong.study.orange.user.service.impl;
 
+import com.zzsong.study.orange.common.util.DateUtils;
 import com.zzsong.study.orange.user.pojo.LogObject;
 import com.zzsong.study.orange.common.pojo.Result;
 import com.zzsong.study.orange.common.pojo.table.User;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -65,6 +67,12 @@ public class UserServiceImpl implements UserService {
             return Result.err("用户名或密码错误!");
         }
         User u = users.get(0);
+        Date birthday = u.getBirthday();
+        if (birthday != null) {
+            String format = DateUtils.format(birthday, "yyyy-MM-dd");
+            u.setFormattedBirthday(format);
+            System.out.println(u.toString());
+        }
         u.setPassword(null);
         return Result.ok("ok", u);
     }

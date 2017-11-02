@@ -1,6 +1,8 @@
 package com.zzsong.study.orange.common.pojo.table;
 
+import com.alibaba.fastjson.JSON;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,7 +13,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-@ToString
+@Accessors(chain = true)
 public class User implements Serializable {
     /**
      * 用户主键
@@ -77,4 +79,16 @@ public class User implements Serializable {
      * 用户头像地址
      */
     private String headPortrait;
+
+
+    /**
+     * 格式化的生日{yyyy-MM-dd}
+     * 前端需要
+     */
+    private String formattedBirthday;
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
+    }
 }

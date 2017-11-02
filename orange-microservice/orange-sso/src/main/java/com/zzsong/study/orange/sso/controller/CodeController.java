@@ -56,7 +56,7 @@ public class CodeController {
         if (size >= mobileCodeConfig.getMaxCount() || !b) {
             return Result.err("验证码获取过于频繁,请" + (mobileCodeConfig.getInterval() - l) + "秒后再试!");
         }
-        int code = RandomUtils.createRandomNumber(mobileCodeConfig.getCodeLength());
+        int code = RandomUtils.createRandomNumbeBySpecifiedLength(mobileCodeConfig.getCodeLength());
         logger.debug("sendMobileCode 生成的验证码为: {}", code);
         String key = KeyUtils.createMobileCodeKey(phone, String.valueOf(code));
         boolean ok = redisService.set(key, time, mobileCodeConfig.getSurvive());

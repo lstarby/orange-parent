@@ -1,8 +1,8 @@
 package com.zzsong.study.orange.common.pojo.table;
 
+import com.alibaba.fastjson.JSON;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -12,7 +12,6 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-@ToString
 public class SafetyQuestionAnswer implements Serializable {
     /**
      * 安全问题答案主键
@@ -31,4 +30,8 @@ public class SafetyQuestionAnswer implements Serializable {
      */
     private String answer;
 
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
+    }
 }

@@ -12,7 +12,6 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Result<T> implements Serializable {
@@ -71,4 +70,8 @@ public class Result<T> implements Serializable {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
+    }
 }

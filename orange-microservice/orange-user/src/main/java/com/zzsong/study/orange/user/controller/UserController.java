@@ -25,9 +25,6 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
-    private LogRepository logRepository;
-
-    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }

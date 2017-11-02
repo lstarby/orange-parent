@@ -280,13 +280,20 @@
             }
         }
 
-        // thymeleaf获取生日年份
-        var bYear = /*[[${#dates.format(user.birthday,'yyyy')}]]*/ null;
-        // thymeleaf获取生日月份
-        var bMonth = /*[[${#dates.format(user.birthday,'MM')}]]*/ null;
-        // thymeleaf获取生日日期
-        var bDay = /*[[${#dates.format(user.birthday,'dd')}]]*/ null;
-
+        // thymeleaf获取对象中的值
+        var birthday = /*[[${user.formattedBirthday}]]*/ null;
+        var bYear = null;
+        var bMonth = null;
+        var bDay = null;
+        if (birthday !== null) {
+            var split = birthday.split("-");
+            var length = split.length;
+            if (length === 3) {
+                bYear = split[0];
+                bMonth = split[1];
+                bDay = split[2];
+            }
+        }
         /* 初始化日期选择器开始 */
         var y = new Date().getFullYear();
         var yyyy = $('#yyyy');
@@ -343,12 +350,12 @@
                 contentType: false
             }).done(function (res) {
                 if ((res.status) !== 200) {
-
+                    alert("fail : " + res.msg)
                 } else {
                     $('#headPortrait').attr("src", res.data);
                 }
             }).fail(function (res) {
-                alert("fail : " + res.msg);
+                alert("头像上传失败!");
             });
         });
     });
