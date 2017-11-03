@@ -39,10 +39,7 @@ management:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://user:password123@10.211.55.8:8761/eureka/,http://user:password123@10.211.55.11:8761/eureka/
-    cache-refresh-executor-thread-pool-size: 40
-    heartbeat-executor-thread-pool-size: 40
-    eureka-server-connect-timeout-seconds: 30
+      defaultZone: http://user:password123@127.0.0.1:8761/eureka/
 
 logging:
   level:

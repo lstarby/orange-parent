@@ -13,12 +13,18 @@ security:
     password: password123
 eureka:
   client:
+#   单节点该项设为false， 代表不向服务中心注册自己
+    register-with-eureka: false
+#   单服务注册中心的职责是维护服务实例，他不需要检索服务，所以也为false
+    fetch-registry: false
     service-url:
 #     这一行配置主要起到的作用是将当前的eureka注册到另一个eureka上去。
-      defaultZone: http://user:password123@10.211.55.8:8761/eureka/
+      defaultZone: http://user:password123@127.0.0.1:8761/eureka/
     healthcheck:
-      enabled: true # Eureka健康检查
+#     Eureka健康检查
+      enabled: true
   instance:
     prefer-ip-address: true
   server:
-    enable-self-preservation: false # 本地开发时关闭自我保护
+#   本地开发时关闭自我保护
+    enable-self-preservation: false
