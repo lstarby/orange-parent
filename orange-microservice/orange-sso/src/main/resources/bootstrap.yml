@@ -33,7 +33,7 @@ spring:
     password: guest
   data:
     mongodb:
-      uri: mongodb://zzsong:zzsong@127.0.0.1:27017/orange
+      uri: mongodb://127.0.0.1:27017/orange
 
 management:
   security:

@@ -28,9 +28,6 @@ public class MyBatisConfigure {
         // 设置mybatis的主配置文件
         Resource mybatisConfigXml = resolver.getResource("classpath:mybatis/mybatis-config.xml");
         bean.setConfigLocation(mybatisConfigXml);
-        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-        configuration.setMapUnderscoreToCamelCase(true);
-        bean.setConfiguration(configuration);
         try {
             //添加XML目录
             bean.setMapperLocations(resolver.getResources("classpath:mybatis/mappers/*.xml"));

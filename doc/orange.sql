@@ -11,11 +11,47 @@
  Target Server Version : 50715
  File Encoding         : 65001
 
- Date: 26/10/2017 14:51:03
+ Date: 05/11/2017 23:41:37
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for area
+-- ----------------------------
+DROP TABLE IF EXISTS `area`;
+CREATE TABLE `area` (
+  `code` int(8) NOT NULL COMMENT '区编码',
+  `name` varchar(40) NOT NULL COMMENT '区名称',
+  `parent_code` int(8) NOT NULL COMMENT '所属市编码',
+  PRIMARY KEY (`code`),
+  KEY `area_parentcode` (`parent_code`),
+  CONSTRAINT `area_parentcode` FOREIGN KEY (`parent_code`) REFERENCES `city` (`parent_code`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='区';
+
+-- ----------------------------
+-- Table structure for city
+-- ----------------------------
+DROP TABLE IF EXISTS `city`;
+CREATE TABLE `city` (
+  `code` int(8) NOT NULL COMMENT '市编码',
+  `name` varchar(40) NOT NULL COMMENT '名称',
+  `parent_code` int(8) NOT NULL COMMENT '所属省份编码',
+  PRIMARY KEY (`code`),
+  KEY `city_parentcode` (`parent_code`),
+  CONSTRAINT `city_parentcode` FOREIGN KEY (`parent_code`) REFERENCES `province` (`code`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='市';
+
+-- ----------------------------
+-- Table structure for province
+-- ----------------------------
+DROP TABLE IF EXISTS `province`;
+CREATE TABLE `province` (
+  `code` int(8) NOT NULL COMMENT '省份编码',
+  `name` varchar(40) NOT NULL COMMENT '省份名称',
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='省';
 
 -- ----------------------------
 -- Table structure for receiving_address
@@ -32,7 +68,9 @@ CREATE TABLE `receiving_address` (
   `detailed_address` varchar(255) DEFAULT NULL COMMENT '详细地址',
   `postcode` varchar(20) DEFAULT NULL COMMENT '邮编',
   `is_default` int(1) NOT NULL DEFAULT '0' COMMENT '是否默认收货地址, 0:否 1:是',
-  PRIMARY KEY (`receive_address_id`)
+  PRIMARY KEY (`receive_address_id`),
+  KEY `receiving_address_userid` (`user_id`),
+  CONSTRAINT `receiving_address_userid` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='收货地址';
 
 -- ----------------------------
@@ -41,7 +79,7 @@ CREATE TABLE `receiving_address` (
 DROP TABLE IF EXISTS `safety_question`;
 CREATE TABLE `safety_question` (
   `question_id` int(2) NOT NULL AUTO_INCREMENT COMMENT '问题id',
-  `question` varchar(100) NOT NULL COMMENT '问题答案',
+  `question` varchar(100) NOT NULL COMMENT '问题',
   PRIMARY KEY (`question_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='安全问题表';
 
@@ -52,9 +90,13 @@ DROP TABLE IF EXISTS `safety_question_answer`;
 CREATE TABLE `safety_question_answer` (
   `question_answer_id` varchar(40) NOT NULL COMMENT '主键',
   `user_id` varchar(40) NOT NULL COMMENT '用户表主键',
-  `question` varchar(40) NOT NULL COMMENT '问题',
+  `question_id` int(2) NOT NULL COMMENT '问题id',
   `answer` varchar(100) NOT NULL COMMENT '问题答案',
-  PRIMARY KEY (`question_answer_id`)
+  PRIMARY KEY (`question_answer_id`),
+  KEY `safety_question_answer_userid` (`user_id`),
+  KEY `safety_question_answer_question_id` (`question_id`),
+  CONSTRAINT `safety_question_answer_question_id` FOREIGN KEY (`question_id`) REFERENCES `safety_question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `safety_question_answer_userid` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='安全问题答案表';
 
 -- ----------------------------
@@ -76,15 +118,9 @@ CREATE TABLE `user` (
   `membership_grade` int(1) unsigned NOT NULL DEFAULT '1' COMMENT '会员等级',
   `id_card_number` varchar(40) DEFAULT NULL COMMENT '身份证号码',
   `payment_password` varchar(40) DEFAULT NULL COMMENT '支付密码',
-  `is_real_authentication` int(1) NOT NULL COMMENT '是否实名 0:否 1:是',
+  `is_real_authentication` int(1) NOT NULL DEFAULT '0' COMMENT '是否实名 0:否 1:是',
+  `head_portrait` varchar(255) DEFAULT NULL COMMENT '用户头像地址',
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
-
--- ----------------------------
--- Records of user
--- ----------------------------
-BEGIN;
-INSERT INTO `user` VALUES ('5d56c366-b9f2-11e7-837d-275227cf9789', 'song', '宋志宗', 1, '1991-02-10', '111', '111@qq.com', '698D51A19D8A121CE581499D7B701668', 0, '2017-10-26 10:07:05', '2017-10-26 10:07:05', 1, '342921199102104436', '123', 0);
-COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
