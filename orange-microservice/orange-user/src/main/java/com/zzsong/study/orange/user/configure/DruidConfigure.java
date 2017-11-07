@@ -1,6 +1,7 @@
 package com.zzsong.study.orange.user.configure;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
@@ -28,7 +29,7 @@ public class DruidConfigure implements EnvironmentAware {
     }
 
     @Bean
-    public DataSource writeDataSource() {
+    public DataSource dataSource() {
         logger.debug("正在装配Druid");
         DruidDataSource datasource = new DruidDataSource();
         datasource.setUrl(pr.getProperty("url"));

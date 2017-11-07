@@ -60,7 +60,8 @@
                    allowexts="gif,jpeg,jpg,png,bmp"
                    accept="image/*" multiple="multiple"/>
             <img id="headPortrait" class="am-circle am-img-thumbnail" src="/images/getAvatar.do.jpg"
-                 th:src="${user.headPortrait} == null ? '/images/getAvatar.do.jpg' : ${user.headPortrait}"/>
+                 th:src="${user.headPortrait} == null ? '/images/getAvatar.do.jpg' : ${user.headPortrait}"
+            style="width: 100px;height: 100px"/>
           </div>
 
           <p class="am-form-help">头像</p>
@@ -341,7 +342,11 @@
 
         $('#uploadHeadPortrait').change(function () {
             var formData = new FormData();
-            formData.append('file', $('#uploadHeadPortrait')[0].files[0]);
+            var file = $('#uploadHeadPortrait')[0].files[0];
+            formData.append('file', file);
+            var windowURL = window.URL || window.webkitURL;
+            var objectURL = windowURL.createObjectURL(file);
+            $('#headPortrait').attr("src", objectURL);
             $.ajax({
                 url: '/uploadHeadPortrait',
                 type: 'POST',
@@ -351,12 +356,14 @@
                 contentType: false
             }).done(function (res) {
                 if ((res.status) !== 200) {
-                    alert("fail : " + res.msg)
+                    alert("fail : " + res.msg);
+                    $('#headPortrait').attr("src", "/images/getAvatar.do.jpg");
                 } else {
                     $('#headPortrait').attr("src", res.data);
                 }
             }).fail(function (res) {
                 alert("头像上传失败!");
+                $('#headPortrait').attr("src", "/images/getAvatar.do.jpg");
             });
         });
 
@@ -369,14 +376,6 @@
             var dd = $('#dd').val();
             var phone = $('#user-phone').val();
             var email = $('#user-email').val();
-            console.log(nickName);
-            console.log(name);
-            console.log(gender === undefined);
-            console.log(yyyy);
-            console.log(mm);
-            console.log(dd);
-            console.log(phone);
-            console.log(email);
             var formattedBirthday = undefined;
             if (yyyy !== "0" && mm !== "0" && dd !== "0") {
                 formattedBirthday = yyyy + "-" + mm + "-" + dd;

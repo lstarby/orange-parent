@@ -4,6 +4,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- mapper代理方式整合dao接口时namespace必须为对应接口的完全限定名 -->
 <mapper namespace="com.zzsong.study.orange.user.mapper.UserMapper">
+    <!-- 用户表字段 -->
+    <sql id="userField">
+        user_id,
+        nick_name,
+        name,
+        gender,
+        birthday,
+        phone,
+        email,
+        password,
+        account_state,
+        create_time,
+        state_time,
+        membership_grade,
+        id_card_number,
+        payment_password,
+        is_real_authentication,
+        head_portrait
+    </sql>
+
     <!-- 新增账户 -->
     <insert id="addUser" parameterType="user">
         <selectKey keyProperty="userId" resultType="String" order="BEFORE">
@@ -20,21 +40,7 @@
     <!-- 账号密码查询账户 -->
     <select id="getUser" parameterType="user" resultType="user">
         SELECT
-        user_id,
-        nick_name,
-        name,
-        gender,
-        birthday,
-        phone,
-        email,
-        password,
-        account_state,
-        create_time,
-        state_time,
-        membership_grade,
-        id_card_number,
-        payment_password,
-        is_real_authentication
+        <include refid="userField"/>
         FROM user
         <where>
             `password` = #{password}
@@ -66,21 +72,21 @@
     <update id="updateUserByUserId" parameterType="user">
         UPDATE user
         <set>
-            <if test="nickName != null">nick_name = #{nickName}</if>
-            <if test="name != null">name = #{name}</if>
-            <if test="gender != null">gender = #{gender}</if>
-            <if test="birthday != null">birthday = #{birthday}</if>
-            <if test="phone != null">phone = #{phone}</if>
-            <if test="email != null">email = #{email}</if>
-            <if test="password != null">`password` = #{password}</if>
-            <if test="accountState != null">account_state = #{accountState}</if>
-            <if test="createTime != null">create_time = #{createTime}</if>
-            <if test="stateTime != null">state_time = #{stateTime}</if>
-            <if test="membershipGrade != null">membership_grade = #{membershipGrade}</if>
-            <if test="idCardNumber != null">id_card_number = #{idCardNumber}</if>
-            <if test="paymentPassword != null">payment_password = #{paymentPassword}</if>
+            <if test="nickName != null">nick_name = #{nickName},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="birthday != null">birthday = #{birthday},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="password != null">`password` = #{password},</if>
+            <if test="accountState != null">account_state = #{accountState},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="stateTime != null">state_time = #{stateTime},</if>
+            <if test="membershipGrade != null">membership_grade = #{membershipGrade},</if>
+            <if test="idCardNumber != null">id_card_number = #{idCardNumber},</if>
+            <if test="paymentPassword != null">payment_password = #{paymentPassword},</if>
             <if test="isRealAuthentication != null">
-                is_real_authentication = #{isRealAuthentication}
+                is_real_authentication = #{isRealAuthentication},
             </if>
             <if test="headPortrait != null">head_portrait = #{headPortrait}</if>
         </set>
@@ -88,4 +94,10 @@
             user_id = #{userId}
         </where>
     </update>
+
+    <select id="getUserByUserId" parameterType="string" resultType="user">
+        SELECT
+        <include refid="userField"/>
+        FROM user WHERE user_id = #{userId};
+    </select>
 </mapper>

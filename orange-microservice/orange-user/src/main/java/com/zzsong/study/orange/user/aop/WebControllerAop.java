@@ -1,15 +1,15 @@
 package com.zzsong.study.orange.user.aop;
 
+import com.zzsong.study.orange.common.constants.AopConstants;
 import com.zzsong.study.orange.user.pojo.LogObject;
 import com.zzsong.study.orange.user.util.AopUtils;
-import org.apache.ibatis.javassist.*;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.javassist.NotFoundException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -24,9 +24,8 @@ import java.util.Map;
  */
 @Component
 @Aspect
+@Slf4j
 public class WebControllerAop {
-
-    private static Logger logger = LoggerFactory.getLogger(WebControllerAop.class);
 
     @Pointcut("execution(* com.zzsong.study.orange.user.controller..*.*(..))")
     public void executeService() {
@@ -34,17 +33,18 @@ public class WebControllerAop {
 
     @AfterReturning(value = "executeService()", returning = "rsp")
     public void doAfterReturningAdvice(JoinPoint joinPoint, Object rsp) {
-        LogObject.OrangeLog log = LogObject.get();
+        LogObject.OrangeLog orangeLog = LogObject.get();
         String clazzName = joinPoint.getTarget().getClass().getName();
         String methodName = joinPoint.getSignature().getName(); //获取方法名称
         Object[] args = joinPoint.getArgs();//参数
         Map<String, Object> parameters = new HashMap<>();//获取被切参数名称及参数值
         try {
-            parameters = AopUtils.getFieldsName(this.getClass(), clazzName, methodName, args);
+            parameters = AopUtils.getFields(this.getClass(), clazzName,
+                    methodName, args, AopConstants.ACCEPT_TYPES);
         } catch (NotFoundException e) {
             String message = e.getMessage();
-            logger.error("NotFoundException = {}", message);
-            log.getErrMsg().add(message);
+            log.error("NotFoundException = {}", message);
+            orangeLog.getErrMsg().add(message);
         }
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
@@ -53,16 +53,16 @@ public class WebControllerAop {
             String key = parameterNames.nextElement();
             parameters.put(key, request.getParameter(key));
         }
-        log.getRequestParams().putAll(parameters);
-        log.setResponse(rsp);
+        orangeLog.getRequestParams().putAll(parameters);
+        orangeLog.setResponse(rsp);
     }
 
     @AfterThrowing(value = "executeService()", throwing = "e")
     public void doAfterThrowingAdvice(Exception e) {
         String message = e.getMessage();
-        LogObject.OrangeLog log = LogObject.get();
-        log.getErrMsg().add(message);
-        log.setLogLevel(1);
+        LogObject.OrangeLog orangeLog = LogObject.get();
+        orangeLog.getErrMsg().add(message);
+        orangeLog.setLogLevel(1);
     }
 
 }

@@ -36,7 +36,6 @@ public class BeanConfigure {
 
     @Bean
     public EmbeddedServletContainerCustomizer embeddedServletContainerCustomizerustomizer() {
-
         return (container -> {
             ErrorPage error401Page = new ErrorPage(HttpStatus.UNAUTHORIZED, "/401.html");
             ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/404.html");

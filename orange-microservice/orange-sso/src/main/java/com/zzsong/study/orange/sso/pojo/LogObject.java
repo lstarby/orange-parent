@@ -1,5 +1,6 @@
 package com.zzsong.study.orange.sso.pojo;
 
+import com.alibaba.fastjson.JSON;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -31,7 +32,6 @@ public class LogObject {
     @Document(collection = "log-orange-sso")
     @Getter
     @Setter
-    @ToString
     public static class OrangeLog implements Serializable {
         /**
          * 日志等级
@@ -94,5 +94,10 @@ public class LogObject {
         // TODO: 2017/10/27 日志存活时间改为可配置
         @Indexed(expireAfterSeconds = 2592000, background = true)
         private Date createdAt;
+
+        @Override
+        public String toString() {
+            return JSON.toJSONString(this);
+        }
     }
 }

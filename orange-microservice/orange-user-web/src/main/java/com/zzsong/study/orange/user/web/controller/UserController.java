@@ -2,6 +2,7 @@ package com.zzsong.study.orange.user.web.controller;
 
 import com.zzsong.study.orange.common.pojo.Result;
 import com.zzsong.study.orange.common.pojo.table.User;
+import com.zzsong.study.orange.user.web.pojo.LogObject;
 import com.zzsong.study.orange.user.web.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,13 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * 上传头像
+     *
+     * @param file    头像文件
+     * @param session 回话信息
+     * @return Result<String>
+     */
     @PostMapping("/uploadHeadPortrait")
     public Result<String> uploadHeadPortrait(@RequestParam("file") MultipartFile file, HttpSession session) {
         Result<String> result = userService.uploadHeadPortrait(file, session);
@@ -35,6 +43,13 @@ public class UserController {
         log.debug("updateUserInformation : user = {}", user.toString());
         Result<User> result = userService.updateUserInformation(user, session);
         log.debug("updateUserInformation result = {}", result.toString());
+        return result;
+    }
+
+    @PostMapping("/changePassword")
+    public Result<String> changePassword(String password, String newPassword, HttpSession session) {
+        Result<String> result = userService.changePassword(password, newPassword, session);
+        log.debug("changePassword result = {}", result.toString());
         return result;
     }
 }

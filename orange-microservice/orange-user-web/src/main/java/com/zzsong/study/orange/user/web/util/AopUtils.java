@@ -1,4 +1,4 @@
-package com.zzsong.study.orange.sso.util;
+package com.zzsong.study.orange.user.web.util;
 
 
 import javassist.*;

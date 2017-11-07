@@ -1,5 +1,6 @@
 package com.zzsong.study.orange.user.web.configure;
 
+import com.zzsong.study.orange.user.web.interceptor.LogInterceptor;
 import com.zzsong.study.orange.user.web.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,12 +19,18 @@ public class WebAppConfigurer extends WebMvcConfigurerAdapter {
         return new LoginInterceptor();
     }
 
+    @Bean
+    public LogInterceptor logInterceptor(){
+        return new LogInterceptor();
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 多个拦截器组成一个拦截器链
         // addPathPatterns 用于添加拦截规则
         // excludePathPatterns 用户排除拦截
         registry.addInterceptor(loginInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(logInterceptor()).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
 

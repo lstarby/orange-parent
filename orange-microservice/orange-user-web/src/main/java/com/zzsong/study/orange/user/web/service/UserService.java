@@ -20,4 +20,14 @@ public interface UserService {
     Result<String> uploadHeadPortrait(MultipartFile file, HttpSession session);
 
     Result<User> updateUserInformation(User user, HttpSession session);
+
+    /**
+     * 修改密码
+     *
+     * @param password    旧密码
+     * @param newPassword 新密码
+     * @param session     session
+     * @return Result<String>
+     */
+    Result<String> changePassword(String password, String newPassword, HttpSession session);
 }

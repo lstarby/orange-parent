@@ -1,9 +1,8 @@
-package com.zzsong.study.orange.user.pojo;
+package com.zzsong.study.orange.user.web.pojo;
 
 import com.alibaba.fastjson.JSON;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -29,7 +28,9 @@ public class LogObject {
         local.remove();
     }
 
-    @Document(collection = "log-orange-user")
+
+
+    @Document(collection = "log-orange-user-web")
     @Getter
     @Setter
     public static class OrangeLog implements Serializable {

@@ -1,11 +1,13 @@
 server:
   tomcat:
     uri-encoding: UTF-8
+    max-threads: 200
+    min-spare-threads: 50
   port: 8011
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain,text/css,application/javascript
-    min-response-size: 1
+    min-response-size: 50
 
 spring:
   application:
@@ -30,15 +32,16 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     filters: stat,wall,log4j
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    useGlobalDataSourceStat: true
   data:
     mongodb:
       uri: mongodb://127.0.0.1:27017/orange
 
 logging:
   level:
-    root: info
+    root: off
     druid: off
-    com.zzsong: debug
+    com.zzsong: off
 
 eureka:
   client:
@@ -46,3 +49,6 @@ eureka:
       enabled: true
     serviceUrl:
       defaultZone: http://user:password123@127.0.0.1:8761/eureka/
+
+druid:
+

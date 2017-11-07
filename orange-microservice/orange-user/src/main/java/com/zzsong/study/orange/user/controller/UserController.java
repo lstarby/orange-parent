@@ -60,7 +60,8 @@ public class UserController {
     /**
      * 修改密码
      *
-     * @param user ()
+     * @param user        (password+(userid | phone | email))
+     * @param newPassword 新密码
      * @return Result<String>
      */
     @PostMapping("changePassword")
@@ -108,6 +109,14 @@ public class UserController {
         log.debug("updateUserByUserId : user = {}", user.toString());
         Result<String> result = userService.updateUserByUserId(user);
         log.debug("updateUserByUserId : result = {}", result.toString());
+        return result;
+    }
+
+    @PostMapping("/getUserByUserId")
+    public Result<User> getUserByUserId(@RequestParam String userId) {
+        log.debug("getUserByUserId : userId = {}", userId);
+        Result<User> result = userService.getUserByUserId(userId);
+        log.debug("getUserByUserId : result = {}", result.toString());
         return result;
     }
 }

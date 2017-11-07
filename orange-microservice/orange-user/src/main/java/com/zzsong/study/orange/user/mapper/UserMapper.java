@@ -1,6 +1,5 @@
 package com.zzsong.study.orange.user.mapper;
 
-import com.zzsong.study.orange.common.pojo.table.Province;
 import com.zzsong.study.orange.common.pojo.table.User;
 import org.apache.ibatis.annotations.Param;
 
@@ -54,4 +53,12 @@ public interface UserMapper {
      * @return 修改的条数
      */
     int updateUserByUserId(User user);
+
+    /**
+     * 通过用户主键获取用户对象集合
+     *
+     * @param userId 用户ID
+     * @return List<User>
+     */
+    List<User> getUserByUserId(String userId);
 }

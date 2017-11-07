@@ -9,6 +9,7 @@ import com.zzsong.study.orange.user.mapper.UserMapper;
 import com.zzsong.study.orange.user.service.UserService;
 import com.zzsong.study.orange.user.util.TransactionUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,7 +72,6 @@ public class UserServiceImpl implements UserService {
         if (birthday != null) {
             String format = DateUtils.format(birthday, "yyyy-MM-dd");
             u.setFormattedBirthday(format);
-            System.out.println(u.toString());
         }
         u.setPassword(null);
         return Result.ok("ok", u);
@@ -136,5 +136,20 @@ public class UserServiceImpl implements UserService {
             return Result.err("用户信息修改失败!");
         }
         return Result.ok();
+    }
+
+    @Override
+    public Result<User> getUserByUserId(String userId) {
+        if (StringUtils.isBlank(userId)) {
+            log.debug("userId为空!");
+            return Result.err("userId为空!");
+        }
+        List<User> users = userMapper.getUserByUserId(userId);
+        if (CollectionUtils.isEmpty(users)) {
+            log.debug("获取用户列表为空!");
+            return Result.err("获取用户列表为空!");
+        } else {
+            return Result.ok(users.get(0));
+        }
     }
 }

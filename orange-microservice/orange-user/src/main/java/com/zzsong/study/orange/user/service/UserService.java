@@ -59,4 +59,12 @@ public interface UserService {
      * @return 修改的条数
      */
     Result<String> updateUserByUserId(User user);
+
+    /**
+     * 通过userId获取用户信息
+     *
+     * @param userId 用户表主键
+     * @return Result<User>
+     */
+    Result<User> getUserByUserId(String userId);
 }

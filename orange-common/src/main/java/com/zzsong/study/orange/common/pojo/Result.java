@@ -40,6 +40,12 @@ public class Result<T> implements Serializable {
         return new Result<>(RspCode.SUCC_200, msg, null);
     }
 
+    /**
+     * 200 ok data
+     */
+    public static <T> Result<T> ok(T data) {
+        return new Result<>(RspCode.SUCC_200, "ok", data);
+    }
 
     /**
      * 400 msg null

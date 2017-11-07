@@ -1,8 +1,9 @@
-package com.zzsong.study.orange.sso.aop;
+package com.zzsong.study.orange.user.web.aop;
 
 import com.zzsong.study.orange.common.constants.AopConstants;
-import com.zzsong.study.orange.sso.pojo.LogObject;
-import com.zzsong.study.orange.sso.util.AopUtils;
+import com.zzsong.study.orange.user.web.pojo.LogObject;
+import com.zzsong.study.orange.user.web.util.AopUtils;
+import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -12,8 +13,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javassist.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -28,8 +27,7 @@ import java.util.Map;
 @Slf4j
 public class WebControllerAop {
 
-
-    @Pointcut("execution(* com.zzsong.study.orange.sso.controller..*.*(..))")
+    @Pointcut("execution(* com.zzsong.study.orange.user.web.controller..*.*(..))")
     public void executeService() {
     }
 

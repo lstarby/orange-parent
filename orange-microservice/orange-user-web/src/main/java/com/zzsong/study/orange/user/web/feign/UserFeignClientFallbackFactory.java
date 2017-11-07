@@ -22,6 +22,18 @@ public class UserFeignClientFallbackFactory implements FallbackFactory<UserFeign
                 logger.info("fallback, User服务访问失败: {}", throwable.getMessage());
                 return Result.err("User服务访问失败!");
             }
+
+            @Override
+            public Result<User> getUserByUserId(String userId, String sessionId) {
+                logger.info("fallback, User服务访问失败: {}", throwable.getMessage());
+                return Result.err("User服务访问失败!");
+            }
+
+            @Override
+            public Result<String> changePassword(User user, String newPassword, String sessionId) {
+                logger.info("fallback, User服务访问失败: {}", throwable.getMessage());
+                return Result.err("User服务访问失败!");
+            }
         };
     }
 }
